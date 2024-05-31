@@ -1,0 +1,40 @@
+{% extends "adminlayout.html" %} {% block title %}Update Category Page{% endblock%} 
+{% block content %}
+    <h2 class="my-4">Edit Category</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                {% if category == 'catupdateerror' %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    {% elif category == 'catupdatesuccess' %}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <div class="card shadow-sm p-3 mb-5 rounded">
+        <form method="POST" enctype="multipart/form-data">
+            <div class="mb-1">
+                <label for="category_name" class="form-label">Category Name</label>
+                <input type="text" class="form-control" id="category_name" name="category_name" value={{category.cat_name}}>
+            </div>
+            <div class="mb-1">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" id="description" name="description">{{ category.cat_description }}</textarea>
+            </div>
+            <div class="mb-4">
+                <img class="img-fluid rounded-4 my-2" style="width:100px; height:100px;" src="{{ url_for('static', filename='images/' + category.cat_image) }}" alt="photo">
+                <input type="file" class="form-control" name="category_image" id="category_image" value="{{ category.cat_image}}">
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+    </div>
+{% endblock %}

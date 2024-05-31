@@ -1,0 +1,64 @@
+{% extends "adminlayout.html" %} {% block title %}Category Page{% endblock%} 
+{% block content %}
+<h2 class="mt-4">Manage Category</h2>
+<a href="/addCategory" class="btn btn-outline-dark btn-rounded my-3"><i class="fas fa-plus"></i> Add Category</a>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+              {% if category == 'catsuccess' %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  {{ message }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+<div class="shadow-sm p-3 mb-5 rounded table-responsive">
+  <table class="table table-hover">
+      <thead>
+          <tr>
+            <th>Category Name</th>
+            <th>Description</th>
+            <th>Image</th>
+            <th>Action</th>
+          </tr>
+      </thead>
+      <tbody>
+        <tr>
+          {% for cat in categories: %}
+          <tr>
+            <td>{{ cat.cat_name}}</td>
+            <td>{{ cat.cat_description}}</td>
+            <td>
+              <img class="img-fluid rounded-4" style="width:100px; height:100px;" src="{{ url_for('static', filename='images/' + cat.cat_image) }}" alt="photo">
+            </td>
+            <td> 
+              <a href="/updateCategory/{{cat.id}}" class="btn btn-success btn-sm rounded-5 mx-3">
+                <i class="bi bi-tools"></i>
+              </a>
+              <a class="btn btn-danger btn-sm rounded-5 mx-3" onclick="deleteCategory({{ cat.id }})">
+                <i class="fas fa-trash-alt"></i>
+              </a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tr>
+      </tbody>
+  </table>   
+</div>
+
+<div id="myModaldeleteCategory" class="modaldeleteCategory">
+  <div class="modalbg">
+      <a class="closedeleteCategory" style="text-decoration:none">&times;</a>
+      <h3 class="text-danger">Warning !!!</h3>
+      <hr class="mb-3">
+      <p> If you delete this <strong>category</strong>, all related complaints record will be deleted !!! </p>
+      <button id="confirmDelete" class="btn btn-danger">Confirm Delete</button>
+      <button id="cancelDelete" class="btn btn-secondary">Cancel</button>
+  </div>
+</div>
+<script src="{{ url_for('static', filename='javascript/category.js') }}"></script>
+{% endblock %}

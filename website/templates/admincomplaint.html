@@ -1,0 +1,63 @@
+{% extends "adminlayout.html" %} {% block title %}Complaint Page{% endblock%} 
+{% block content %}
+<h2 class="mt-4">Complaint List</h2>
+<div class="shadow-sm p-3 mb-5 rounded table-responsive">
+  <table class="table align-middle">
+      <thead>
+          <tr>
+            <th>Student Name</th>
+            <th>Student Major</th>
+            <th>Student Year</th>
+            <th>Complainted Date</th>
+            <th>Issue Type</th>
+            <th>Issue</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+      </thead>
+      <tbody>
+        <tr>
+          {% for complaint in complaints: %}
+          <tr>
+            <td>{{ students[complaint.student_id]['name'] }}</td>
+            <td>{{ students[complaint.student_id]['year']}}</td>
+            <td>{{ students[complaint.student_id]['major']}}</td>
+            <td>{{ complaint.created_date }}</td>
+            <td>{{ categories[complaint.category_id] }}</td>
+            <td>{{ complaint.complaint_letter}}</td>
+            <td>
+              <small {% if complaint.status== 'Unsolved' %} class="badge text-bg-danger rounded-5" 
+              {% elif complaint.status== 'Pending' %} class="badge text-bg-warning rounded-5" 
+              {% elif complaint.status== 'Completed' %} class="badge text-bg-success rounded-5" {% endif %}>
+              {{ complaint.status }}
+              </small>
+          </td>
+            <td><a class="btn btn-success" onclick="changeState({{complaint.id}})">change</a></td>
+          </tr>
+          {% endfor %}
+        </tr>
+      </tbody>
+  </table>
+</div>
+
+<div id="myModalChangeState" class="modalChangeState">
+  <div class="modalbgstate">
+      <a class="closeChangeState">&times;</a>
+      <h3>Change State</h3>
+      <hr class="mb-3">
+      <form id="stateform">
+        <small id="showerror" class="text-danger my-2"></small>
+        <select class="form-select mb-4" name="state" id="modalstate">
+          <option value="">Select State</option>
+            <option value="Unsolved">Unsolved</option>
+            <option value="Pending">Pending</option>
+            <option value="Completed">Completed</option>
+        </select>
+        <button type="submit" id="confirmChangeState" class="btn btn-success">Save</button>
+        <a class="cancelstate btn btn-secondary">Cancel</a>
+      </form>
+  </div>
+</div>
+<script src="{{ url_for('static', filename='javascript/changestate.js') }}"></script>
+
+{% endblock %}

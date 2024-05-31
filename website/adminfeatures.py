@@ -5,6 +5,7 @@ from website.web_config import db
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
+
 UPLOAD_FOLDER = 'Website/static/images'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
@@ -16,11 +17,9 @@ def allowed_file(filename):
         if extension in ALLOWED_EXTENSIONS:
             return True
     return False
-           
-def viewcategory():
-    categories = Category.query.all()
-    return render_template("admincategory.html", categories=categories)
 
+
+# managing category
 def addcategory():
     if request.method == 'POST':
         categoryName = request.form.get('category_name')
@@ -28,21 +27,23 @@ def addcategory():
         image = request.files.get('category_image')
         
         if not categoryName or not description:
-            flash("Please fill name or description", category="caterror")
+            flash("Please fill category name or description", category="caterror")
             return redirect(url_for("addCategory"))
         
         if not image:
-            flash("Please fill image field", category="caterror")
+            flash("Please fill image", category="caterror")
             return redirect(url_for("addCategory"))
+            
+        filename = None 
         
-        if image:  
+        if image:
             if not allowed_file(image.filename):
                 flash("File type not allowed", category="caterror")
                 return redirect(url_for("addCategory"))
-        
+            
             filename = secure_filename(image.filename)
             image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            
+        
             catinfo = Category.query.filter_by(cat_name=categoryName).first()
             if catinfo:
                 flash("Category already exists", category="caterror")
@@ -56,10 +57,55 @@ def addcategory():
             db.session.add(new_category)
             db.session.commit()
         
-            flash('Category Added Successfully', category="catsuccess")
-        return redirect(url_for("addCategory"))
+        flash('Category Added Successfully', category="catsuccess")
+        return redirect(url_for("viewCategory"))
     
     return render_template("adminaddcategory.html")
+
+
+def updatecategory(catid):
+    
+    category = Category.query.get(catid)
+    
+    if request.method == 'POST':
+        categoryName = request.form.get('category_name')
+        description = request.form.get('description')
+        image = request.files.get('category_image')
+        
+        if not categoryName or not description:
+            flash("Please fill category name or description", category="catupdateerror")
+            return redirect(url_for("updateCategory", catid=catid))
+        
+        if not image:
+            category.cat_name = categoryName
+            category.cat_description = description            
+            db.session.commit()
+            
+        filename = None 
+        
+        if image:
+            if not allowed_file(image.filename):
+                flash("File type not allowed", category="catupdateerror")
+                return redirect(url_for("updateCategory", catid=catid))
+            
+            filename = secure_filename(image.filename)
+            image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            
+            category.cat_name = categoryName
+            category.cat_description = description
+            category.cat_image = filename
+            
+            db.session.commit()
+        
+        flash('Category updated Successfully', category="catsuccess")
+        return redirect(url_for("viewCategory"))
+    
+    return render_template("adminupdatecategory.html", category=category)
+
+
+def viewcategory():
+    categories = Category.query.all()
+    return render_template("admincategory.html", categories=categories)
 
 
 def deletecategory(catid):
@@ -81,6 +127,7 @@ def deletecategory(catid):
         return print(f'error str({e})')
 
 
+# managing student
 def viewstudent():
     students = Student.query.all()
     return render_template("adminstudent.html", students=students)
@@ -104,7 +151,7 @@ def deletestudent(stid):
     except Exception as e:
         return print(f'error str({e})')
     
-    
+# managing complaints
 def viewcomplaints():
     complaints = Complaints.query.all()
     allstudents = Student.query.all()
@@ -113,7 +160,6 @@ def viewcomplaints():
     categories = {category.id: category.cat_name for category in allcategories}
 
     return render_template("admincomplaint.html", complaints=complaints, students=students, categories=categories)
-    
     
     
 def changestate(cid):
@@ -132,6 +178,8 @@ def changestate(cid):
         except Exception as e:
             return jsonify(success=False, message=f'Server error {e}')
     
+    
+# update admin profile
 def adminprofile():
     user_id = session.get('admin_id')
     admin = Admin.query.get(user_id)
@@ -162,6 +210,8 @@ def adminprofile():
 
     return render_template('adminprofile.html', user=admin)
 
+
+# update admin information
 def updateadmininformation():
     user_id = session.get('admin_id')
     admin = Admin.query.get(user_id)

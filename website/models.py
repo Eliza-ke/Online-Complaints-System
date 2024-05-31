@@ -35,3 +35,4 @@ class Complaints(db.Model):
     status = db.Column(db.String(255), nullable=False)
     student_id = db.Column(db.Integer, db.ForeignKey("student.id"))
     category_id = db.Column(db.Integer, db.ForeignKey("category.id"))
+

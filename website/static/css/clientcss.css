@@ -1,28 +1,26 @@
-/* .navbar a:hover {
-        border-bottom: 1px solid red;
-    }
-
-    .navbar a:active {
-        background-color: #cfecec;
-    } */
+/* new added */
 
 .dropdown-menu {
   min-width: fit-content;
 }
 
+/* css for homepage */
 body {
   margin: 0;
   padding: 0;
-  background-color: #dde4e4;
+  background-color: #f6eec9;
 }
 
 .container {
   border-radius: 5px;
   width: 100%;
-  background-image: url("images/background2.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  object-fit: cover;
+}
+
+.image {
+  width: 500px;
+  height: 400px;
+  border-radius: 10px;
+  margin-top: 20px;
 }
 
 .cards-wrapper {
@@ -32,12 +30,12 @@ body {
 }
 
 .card {
-  margin: 0 2rem;
+  margin: 1rem 2rem;
 }
 
 @media screen and (max-width: 567px) {
   .card:not(:first-child) {
-    display: none;
+      display: none;
   }
 }
 
@@ -46,16 +44,67 @@ body {
   max-height: 100%;
 }
 
-.complaintform{
+.complaintform {
   max-width: 600px;
   background-color: #ffffff;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
 .form-caption {
   text-align: center;
   margin-bottom: 20px;
   font-style: italic;
   color: #6c757d;
+}
+
+/* css for about us page */
+
+.about{
+  margin: 10px;
+}
+.about .row {
+  margin: 10px 0 10px 0;
+}
+.about .row .col img{
+  width: 600px;
+  height: 300px;
+}
+
+@media screen and (max-width: 567px) {
+  .about .row .col img{
+      width: 400px;
+      height: 200px;
+      padding: 10px;
+  }
+}
+
+/* css for footer */
+.footer-container a{
+  color: black;
+  text-decoration: none;
+}
+
+/* css for contact us page */
+
+.text-muted {
+  color: lightgrey;
+}
+.text-left {
+  text-align: left !important;
+}
+.text-uppercase {
+  text-transform: uppercase !important;
+}
+.btn-dark {
+  color: #fff !important;
+  background-color: #343a40 !important;
+  transition: background-color 0.3s ease;
+}
+.btn-dark:hover {
+  background-color: #141414 !important;
+}
+.text-dark {
+  color: #101111 !important;
 }

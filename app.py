@@ -1,5 +1,5 @@
 from flask import render_template, redirect, session, url_for
-from website.adminfeatures import addcategory, adminprofile, changestate, deletecategory, deletestudent, updateadmininformation, viewcategory, viewcomplaints, viewstudent
+from website.adminfeatures import addcategory, adminprofile, changestate, deletecategory, deletestudent, updateadmininformation, updatecategory, viewcategory, viewcomplaints, viewstudent
 from website.auth import signin, signup
 from website.clientfeatures import clientprofile, send_complaint, updateclientinformation
 from website.web_config import create_app
@@ -61,12 +61,13 @@ def addCategory():
     else:
         return addcategory()
     
-# @app.route('/updateCategory/<int:catid>', methods=['GET', 'POST'])
-# def updateCategory(catid):
-#     if 'admin_id' not in session:
-#         return redirect(url_for('home'))
-#     else:
-#         return updatecategory(catid)
+    
+@app.route('/updateCategory/<int:catid>', methods=['GET', 'POST'])
+def updateCategory(catid):
+    if 'admin_id' not in session:
+        return redirect(url_for('home'))
+    else:
+        return updatecategory(catid)
     
     
 @app.route('/deleteCategory/<int:catid>', methods=['GET', 'POST'])

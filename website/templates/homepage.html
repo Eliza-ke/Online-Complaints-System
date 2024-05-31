@@ -1,83 +1,223 @@
-{% extends "clientlayout.html" %} {% block title %}Home Page{% endblock%} 
+{% extends "clientlayout.html" %} {% block title %}Home Page{% endblock%}
 {% block content %}
-    <div class="container-fluid">
-        <div class="justify-content-center container my-5 py-5">
-            <h1 class="text-center">Welcome to School Online Complaints System</h1>
-            <p class="text-justify py-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione magni animi
-                aperiam, cupiditate
-                voluptate
-                possimus quo nam impedit fuga aliquid, labore cum iste. Illo ut facilis molestias minima cumque
-                iste.Lorem
-                ipsum dolor sit amet consectetur adipisicing elit. Ratione magni animi aperiam, cupiditate voluptate
-                possimus quo nam impedit fuga aliquid, labore cum iste. Illo ut facilis molestias minima cumque iste.
-            </p>
-            <a href="/complaint_form" class="btn btn-warning">Complaint</a>
+<div class="container-fluid">
+    <div class="d-flex align-items-center justify-content-center">
+        <img src="{{ url_for('static', filename='images/background2.png/') }}" class="image">
 
-            <div id="carouselExampleControls" class="carousel carousel-dark slide" data-bs-ride="carousel">
-                <div class="carousel-inner py-3">
-                    <div class="carousel-item active">
-                        <div class="cards-wrapper">
-                            <div class="card" style="width: 18rem;">
-                                <img src="{{ url_for('static', filename='images/complaint.png/') }}" class="card-img-top" alt="...">
-                                <div class="card-body text-center">
-                                    <h5 class="card-title">Category Name</h5>
-                                    <a href="#" class="btn btn-primary my-2 rounded-pill">Report</a>
-                                </div>
-                            </div>
-                            <div class="card" style="width: 18rem;">
-                                <img src="{{ url_for('static', filename='images/complaint.png/') }}" class="card-img-top" alt="...">
-                                <div class="card-body text-center">
-                                    <h5 class="card-title">Category Name</h5>
-                                    <a href="#" class="btn btn-primary my-2 rounded-pill">Report</a>
-                                </div>
-                            </div>
-                            <div class="card" style="width: 18rem;">
-                                <img src="{{ url_for('static', filename='images/complaint.png/') }}" class="card-img-top" alt="...">
-                                <div class="card-body text-center">
-                                    <h5 class="card-title">Category Name</h5>
-                                    <a href="#" class="btn btn-primary my-2 rounded-pill">Report</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        <div class="justify-content-center container">
+            <div class="text-body my-3 d-md-block">
+                <h2>Welcome to Online Complaints System</h2>
+                <p class="py-3">We support an online complaints system for the students to hear students' voices. Your
+                    complaints will be managed by the responsible person. You can freely report your complaints here.
+                </p>
+                <a href="/complaint_form" class="btn btn-warning">Complaint</a>
 
-                    <div class="carousel-item">
-                        <div class="cards-wrapper">
-                            <div class="card" style="width: 18rem;">
-                                <img src="{{ url_for('static', filename='images/complaint.png/') }}" class="card-img-top" alt="...">
-                                <div class="card-body text-center">
-                                    <h5 class="card-title">Category Name</h5>
-                                    <a href="#" class="btn btn-primary my-2 rounded-pill">Report</a>
-                                </div>
-                            </div>
-                            <div class="card" style="width: 18rem;">
-                                <img src="{{ url_for('static', filename='images/complaint.png/') }}" class="card-img-top" alt="...">
-                                <div class="card-body text-center">
-                                    <h5 class="card-title">Category Name</h5>
-                                    <a href="#" class="btn btn-primary my-2 rounded-pill">Report</a>
-                                </div>
-                            </div>
-                            <div class="card" style="width: 18rem;">
-                                <img src="{{ url_for('static', filename='images/complaint.png/') }}" class="card-img-top" alt="...">
-                                <div class="card-body text-center">
-                                    <h5 class="card-title">Category Name</h5>
-                                    <a href="#" class="btn btn-primary my-2 rounded-pill">Report</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
-                    data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
-                    data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
             </div>
         </div>
     </div>
+
+    <div class="container my-3">
+        <div class="row py-3">
+            <div class="col bg-light py-3">
+                <h3 class="text-center">Belief</h3>
+                <p class="text-justify">
+                    We believe our students' strong and effective complaints can help to improve quality of services and
+                    administration.
+                </p>
+            </div>
+            <div class="col bg-light mx-3 py-3">
+                <h3 class="text-center">Target</h3>
+                <p class="text-justify">
+                    We aim to solve the problems within one week. For the administration level complaints, we need to
+                    take more time and so we hope to finish the process within a month.
+                </p>
+            </div>
+            <div class="col bg-light py-3">
+                <h3 class="text-center">Supports</h3>
+                <p class="text-justify">
+                    To report complaints easily, we support this system with simple and user-friendly features. Students
+                    need to choose related categories for their complaints.
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col bg-light mx-3 py-3">
+                <h3 class="text-center">How to communicate with us?</h3>
+                <p class="text-justify">
+                    You can communicate by phone, email and contact us using this system. You can discuss any
+                    difficulties in our university with us.
+                </p>
+            </div>
+            <div class="col bg-light mx-3 py-3">
+                <h3 class="text-center">Can we complaints the system?</h3>
+                <p class="text-justify">
+                    Of course, you can complaint about any difficulties of using this system. This system is a part of
+                    the university and your complaints can make better changes to this system.
+                </p>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="carouselExampleControls" class="carousel carousel-dark slide" data-bs-ride="carousel">
+        <div class="carousel-inner py-3">
+            <div class="carousel-item active">
+                <div class="cards-wrapper">
+                    <div class="card" style="width: 15rem;">
+                        <img src="{{ url_for('static', filename='images/complaint.png/') }}" class="card-img-top"
+                            alt="...">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Category Name</h5>
+                            <p>Details</p>
+                            <a href="#" class="btn btn-primary my-2 rounded-pill">Report</a>
+                        </div>
+                    </div>
+                    <div class="card" style="width: 15rem;">
+                        <img src="{{ url_for('static', filename='images/complaint.png/') }}" class="card-img-top"
+                            alt="...">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Category Name</h5>
+                            <p>Details</p>
+                            <a href="#" class="btn btn-primary my-2 rounded-pill">Report</a>
+                        </div>
+                    </div>
+                    <div class="card" style="width: 15rem;">
+                        <img src="{{ url_for('static', filename='images/complaint.png/') }}" class="card-img-top"
+                            alt="...">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Category Name</h5>
+                            <p>Details</p>
+                            <a href="#" class="btn btn-primary my-2 rounded-pill">Report</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <div class="cards-wrapper">
+                    <div class="card" style="width: 15rem;">
+                        <img src="{{ url_for('static', filename='images/complaint.png/') }}" class="card-img-top"
+                            alt="...">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Category Name</h5>
+                            <p>Details</p>
+                            <a href="#" class="btn btn-primary my-2 rounded-pill">Report</a>
+                        </div>
+                    </div>
+                    <div class="card" style="width: 15rem;">
+                        <img src="{{ url_for('static', filename='images/complaint.png/') }}" class="card-img-top"
+                            alt="...">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Category Name</h5>
+                            <p>Details</p>
+                            <a href="#" class="btn btn-primary my-2 rounded-pill">Report</a>
+                        </div>
+                    </div>
+                    <div class="card" style="width: 15rem;">
+                        <img src="{{ url_for('static', filename='images/complaint.png/') }}" class="card-img-top"
+                            alt="...">
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Category Name</h5>
+                            <p>Details</p>
+                            <a href="#" class="btn btn-primary my-2 rounded-pill">Report</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+</div>
+<div class="container-fluid">
+    <div class="about">
+        <div class="row">
+
+            <div class="col">
+                <img src="{{ url_for('static', filename='images/banner.png/') }}">
+            </div>
+            <div class="col">
+                <h2>About us</h2>
+                <p>Our university is one of the popular IT universities in Yangon. Our university's mission is to
+                    educate and train students to improve creative thinking skills. Students are the most important part
+                    of the university. So we emphasize the rights of students. Our mission is to support better
+                    management
+                    for the students' future.</p>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col">
+                <h2>Why choose?</h2>
+                <p>This system can help to report your complaints anytime from anywhere. We values student point of view
+                    to our university and we're always here to give better services.</p>
+            </div>
+            <div class="col">
+                <img src="{{ url_for('static', filename='images/intro.jpg/') }}">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid py-4">
+    <div class="row px-3">
+        <div class="col-6 mb-4 mb-lg-0">
+            <h2 class="font-weight-semi-bold text-uppercase mb-3 section-title text-left">
+                <span>Contact Us</span>
+            </h2>
+            <p>
+                We are always with you to give better services. Let's contact us to freely say how you think about our
+                university's management and systems' support.
+
+            </p>
+            <div class="d-flex flex-column mb-3">
+                <h4 class="font-weight-semi-bold mb-3">Details</h4>
+                <p class="mb-2">
+                    <i class="bi bi-geo-alt-fill fs-4 px-3"></i>Location: Yangon
+                </p>
+                <p class="mb-2">
+                    <i class="bi bi-envelope-fill fs-4 px-3"></i>Email: infomyanmar@gmail.com
+                </p>
+                <p class="mb-2">
+                    <i class="bi bi-telephone-fill fs-4 px-3"></i>Phone: 09-88880000
+                </p>
+            </div>
+        </div>
+        <div class="col-6">
+            <form name="sentMessage" id="contactForm" novalidate="novalidate" class="form px-3">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="name" placeholder="Enter your name here"
+                        required="required" />
+                    <p class="help-block text-muted"></p>
+                </div>
+
+                <div class="form-group">
+                    <input type="email" class="form-control" id="email" placeholder="Enter your email here"
+                        required="required" />
+                    <p class="help-block text-muted"></p>
+                </div>
+
+                <div class="form-group">
+                    <textarea class="form-control" rows="8" id="message" placeholder="Write your message here"
+                        required="required"></textarea>
+                    <p class="help-block text-muted"></p>
+                </div>
+
+                <div>
+                    <button class="btn btn-dark py-2 px-4" type="submit" id="sendMessageButton">
+                        Send Message
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}

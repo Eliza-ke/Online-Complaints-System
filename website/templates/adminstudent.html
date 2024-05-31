@@ -1,0 +1,57 @@
+{% extends "adminlayout.html" %} {% block title %}Student Page{% endblock%} 
+{% block content %}
+<h2 class="mt-4">Student List</h2>
+<div class="shadow-sm p-3 mb-5 rounded table-responsive">
+  <table class="table align-middle">
+      <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Year</th>
+            <th>Major</th>
+            <th>Phone</th>
+            <th>Image</th>
+            <th>Action</th>
+          </tr>
+      </thead>
+      <tbody>
+        <tr>
+          {% for student in students: %}
+          <tr>
+            <td>{{ student.student_name}}</td>
+            <td>{{ student.student_email}}</td>
+            <td>{{ student.student_year}}</td>
+            <td>{{ student.student_major}}</td>
+            <td>{{ student.student_phone}}</td>
+            <td>
+              <img class="img-fluid rounded-4" style="width:100px; height:100px;" src="{{ url_for('static', filename='images/' + student.student_image) }}" alt="user photo">
+            </td>
+            <td> 
+              <a class="btn btn-success" data-id-value="{{ student.id }}">
+                reset password
+              </a>
+              <a class="btn btn-danger" onclick="deleteStudent({{ student.id }})">Delete</a>
+            </td> 
+          </tr>
+          {% endfor %}
+
+        </tr>
+      
+      </tbody>
+  </table>
+</div>
+
+<div id="myModaldeleteStudent" class="modaldeleteStudent">
+  <div class="modalbg">
+      <a class="closedeleteStudent" style="text-decoration:none">&times;</a>
+      <h3 class="text-danger">Warning !!!</h3>
+      <hr class="mb-3">
+      <p> If you delete this <strong>student</strong>, all related complaints record will be deleted !!! </p>
+      <button id="confirmDeleteStudent" class="btn btn-danger">Confirm Delete</button>
+      <button id="cancelDeleteStudent" class="btn btn-secondary">Cancel</button>
+  </div>
+</div>
+
+<script src="{{ url_for('static', filename='javascript/student.js') }}"></script>
+
+{% endblock %}
