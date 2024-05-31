@@ -1,0 +1,83 @@
+{% extends "clientlayout.html" %} {% block title %}Home Page{% endblock%} 
+{% block content %}
+    <div class="container-fluid">
+        <div class="justify-content-center container my-5 py-5">
+            <h1 class="text-center">Welcome to School Online Complaints System</h1>
+            <p class="text-justify py-3">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione magni animi
+                aperiam, cupiditate
+                voluptate
+                possimus quo nam impedit fuga aliquid, labore cum iste. Illo ut facilis molestias minima cumque
+                iste.Lorem
+                ipsum dolor sit amet consectetur adipisicing elit. Ratione magni animi aperiam, cupiditate voluptate
+                possimus quo nam impedit fuga aliquid, labore cum iste. Illo ut facilis molestias minima cumque iste.
+            </p>
+            <a href="/complaint_form" class="btn btn-warning">Complaint</a>
+
+            <div id="carouselExampleControls" class="carousel carousel-dark slide" data-bs-ride="carousel">
+                <div class="carousel-inner py-3">
+                    <div class="carousel-item active">
+                        <div class="cards-wrapper">
+                            <div class="card" style="width: 18rem;">
+                                <img src="{{ url_for('static', filename='images/complaint.png/') }}" class="card-img-top" alt="...">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Category Name</h5>
+                                    <a href="#" class="btn btn-primary my-2 rounded-pill">Report</a>
+                                </div>
+                            </div>
+                            <div class="card" style="width: 18rem;">
+                                <img src="{{ url_for('static', filename='images/complaint.png/') }}" class="card-img-top" alt="...">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Category Name</h5>
+                                    <a href="#" class="btn btn-primary my-2 rounded-pill">Report</a>
+                                </div>
+                            </div>
+                            <div class="card" style="width: 18rem;">
+                                <img src="{{ url_for('static', filename='images/complaint.png/') }}" class="card-img-top" alt="...">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Category Name</h5>
+                                    <a href="#" class="btn btn-primary my-2 rounded-pill">Report</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="carousel-item">
+                        <div class="cards-wrapper">
+                            <div class="card" style="width: 18rem;">
+                                <img src="{{ url_for('static', filename='images/complaint.png/') }}" class="card-img-top" alt="...">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Category Name</h5>
+                                    <a href="#" class="btn btn-primary my-2 rounded-pill">Report</a>
+                                </div>
+                            </div>
+                            <div class="card" style="width: 18rem;">
+                                <img src="{{ url_for('static', filename='images/complaint.png/') }}" class="card-img-top" alt="...">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Category Name</h5>
+                                    <a href="#" class="btn btn-primary my-2 rounded-pill">Report</a>
+                                </div>
+                            </div>
+                            <div class="card" style="width: 18rem;">
+                                <img src="{{ url_for('static', filename='images/complaint.png/') }}" class="card-img-top" alt="...">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title">Category Name</h5>
+                                    <a href="#" class="btn btn-primary my-2 rounded-pill">Report</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+            </div>
+        </div>
+    </div>
+{% endblock %}

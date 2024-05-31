@@ -1,0 +1,61 @@
+/* .navbar a:hover {
+        border-bottom: 1px solid red;
+    }
+
+    .navbar a:active {
+        background-color: #cfecec;
+    } */
+
+.dropdown-menu {
+  min-width: fit-content;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #dde4e4;
+}
+
+.container {
+  border-radius: 5px;
+  width: 100%;
+  background-image: url("images/background2.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  object-fit: cover;
+}
+
+.cards-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  margin: 0 2rem;
+}
+
+@media screen and (max-width: 567px) {
+  .card:not(:first-child) {
+    display: none;
+  }
+}
+
+.card img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.complaintform{
+  max-width: 600px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.form-caption {
+  text-align: center;
+  margin-bottom: 20px;
+  font-style: italic;
+  color: #6c757d;
+}

@@ -1,0 +1,107 @@
+{% extends "clientlayout.html" %} {% block title %}Profile{% endblock%} {% block content %}
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+    {% for category, message in messages %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endfor %}
+{% endif %}
+{% endwith %}
+<div class="d-flex justify-content-center align-items-center min-vh-100">
+<div
+  class="card shadow p-3 mb-5 bg-body-tertiary rounded" 
+  style="background-color: white; width:55%;"
+>
+
+  <div class="container text-center" >
+    <h2 class="m-5">Your Profile</h2>
+    <div class="row">
+      <div class="col-md-4">
+        <img
+          src="{{ url_for('static', filename='images/'+ user.student_image) }}"
+          alt="Welcome Image"
+          class="img-fluid rounded-circle"
+          style="width: 150px; height: 150px"
+        />
+        <form enctype="multipart/form-data" method="POST">
+                <label for="profileImage" style="text-decoration:underline">
+                    Edit Image
+                </label>
+                <input type="file" onchange="this.form.submit()" name="profileImage" id="profileImage" style="display: none;">
+        </form>
+        <div style="margin-top:90px; margin-bottom:20px">
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editprofileModal">Edit Profile</button>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="row p-2 ">
+          <div class="col-md-6">Name</div>
+          <div class="col-md-6">{{ user.student_name}}</div>
+        </div>
+        <div class="row p-2 ">
+          <div class="col-md-6">Email</div>
+          <div class="col-md-6">{{ user.student_email }}</div>
+        </div>
+        <div class="row p-2 ">
+          <div class="col-md-6">Year</div>
+          <div class="col-md-6">{{ user.student_year }}</div>
+        </div>
+        <div class="row p-2 ">
+          <div class="col-md-6">Major</div>
+          <div class="col-md-6">{{ user.student_major }}</div>
+        </div>
+        <div class="row p-2">
+          <div class="col-md-6">Phone</div>
+          <div class="col-md-6">{{ user.student_phone }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="editprofileModal" tabindex="-1" aria-labelledby="editprofileModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Information</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <form method="POST" action="/updateclientInfo">
+            <div class="modal-body">
+                <div class="mb-1">
+                    <label for="name" class="form-label">Full Name</label>
+                    <input type="text" class="form-control" name="name" id="name" value="{{ user.student_name }}">
+                </div>
+                <div class="mb-1">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" name="email" id="email" value="{{ user.student_email }}">
+                </div>
+                <div class="mb-1">
+                    <label for="year" class="form-label">Year</label>
+                    <input type="text" class="form-control" id="year" name="year" value="{{ user.student_year }}">
+                </div>
+                <div class="mb-1">
+                    <label for="major" class="form-label">Major</label>
+                    <input type="text" class="form-control" id="major" name="major" value="{{user.student_major}}">
+                </div>
+                <div class="mb-1">
+                    <label for="phone" class="form-label">Phone No.</label>
+                    <input type="text" class="form-control" name="phone" id="phone" value="{{ user.student_phone }}">
+                </div>
+            
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
