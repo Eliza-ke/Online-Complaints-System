@@ -17,35 +17,39 @@
     {% endwith %}
 
 <div class="shadow-sm p-3 mb-5 rounded table-responsive">
-  <table class="table table-hover">
+  <table class="table align-middle">
       <thead>
           <tr>
+            <th>Image</th>
             <th>Category Name</th>
             <th>Description</th>
-            <th>Image</th>
             <th>Action</th>
           </tr>
       </thead>
-      <tbody>
-        <tr>
+      <tbody id="search-table-body">
+        {% if count == 0 %}
+          <tr>
+            <td colspan="6"><h5 style="color: grey">There is no data ...</h5></td>
+          </tr>
+          {% else %}
           {% for cat in categories: %}
           <tr>
-            <td>{{ cat.cat_name}}</td>
-            <td>{{ cat.cat_description}}</td>
             <td>
-              <img class="img-fluid rounded-4" style="width:100px; height:100px;" src="{{ url_for('static', filename='images/' + cat.cat_image) }}" alt="photo">
+              <img class="img-fluid rounded-4" style="width:80px; height:80px;" src="{{ url_for('static', filename='images/' + cat.cat_image) }}" alt="photo">
             </td>
+            <td class="searchedvalue">{{ cat.cat_name}}</td>
+            <td>{{ cat.cat_description}}</td>
             <td> 
-              <a href="/updateCategory/{{cat.id}}" class="btn btn-success btn-sm rounded-5 mx-3">
+              <a href="/updateCategory/{{cat.id}}" class="btn btn-success mx-3">
                 <i class="bi bi-tools"></i>
               </a>
-              <a class="btn btn-danger btn-sm rounded-5 mx-3" onclick="deleteCategory({{ cat.id }})">
-                <i class="fas fa-trash-alt"></i>
+              <a class="btn btn-danger" onclick="deleteCategory({{ cat.id }})">
+                <i class="bi bi-trash3-fill"></i>
               </a>
             </td>
           </tr>
           {% endfor %}
-        </tr>
+          {% endif %}
       </tbody>
   </table>   
 </div>

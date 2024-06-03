@@ -1,6 +1,6 @@
 from flask import render_template, redirect, session, url_for
-from website.adminfeatures import addcategory, adminprofile, changestate, deletecategory, deletestudent, updateadmininformation, updatecategory, viewcategory, viewcomplaints, viewstudent
-from website.auth import signin, signup
+from website.adminfeatures import addcategory, adminprofile, changestate, deletecategory, deletestudent, filtercategory, filterstatus, resetpassword, updateadmininformation, updatecategory, viewcategory, viewcomplaints, viewresetpassword, viewstudent
+from website.auth import forgotpassword, signin, signup
 from website.clientfeatures import clientprofile, send_complaint, updateclientinformation
 from website.web_config import create_app
 
@@ -24,6 +24,11 @@ def Signout():
     session.pop('admin', None)
     session.pop('admin_id', None)
     return redirect(url_for('SignIn'))
+
+@app.route('/forgotPassword', methods=['GET', 'POST'])
+def forgotPassword():
+    return forgotpassword()
+
 
 @app.route('/complaint_form', methods=['GET', 'POST'])
 def com_send_message():
@@ -100,6 +105,21 @@ def viewComplaints():
         return viewcomplaints()
     
     
+@app.route('/filterStatus/<string:status>', methods=['GET', 'POST'])
+def filterStatus(status):
+    if 'admin_id' not in session:
+        return redirect(url_for('SignIn'))
+    else:
+        return filterstatus(status)
+    
+    
+@app.route('/filterCategory/<int:catid>', methods=['GET', 'POST'])
+def filterCategory(catid):
+    if 'admin_id' not in session:
+        return redirect(url_for('SignIn'))
+    else:
+        return filtercategory(catid)
+    
 @app.route('/changeState/<int:cid>', methods=['GET', 'POST'])
 def changeState(cid):
     if 'admin_id' not in session:
@@ -121,6 +141,21 @@ def updateAdminInfo():
     else:
         return updateadmininformation()
     
+@app.route('/viewResetPassword', methods=['GET', 'POST'])
+def viewResetPassword():
+    if 'admin_id' not in session:
+        return redirect(url_for('SignIn'))
+    else:
+        return viewresetpassword()
+    
+@app.route('/resetPassword/<int:stid>', methods=['GET', 'POST'])
+def resetPassword(stid):
+    if 'admin_id' not in session:
+        return redirect(url_for('SignIn'))
+    else:
+        return resetpassword(stid)
+    
+
     
     
 if __name__ == '__main__':

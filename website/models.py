@@ -35,4 +35,10 @@ class Complaints(db.Model):
     status = db.Column(db.String(255), nullable=False)
     student_id = db.Column(db.Integer, db.ForeignKey("student.id"))
     category_id = db.Column(db.Integer, db.ForeignKey("category.id"))
-
+    
+    
+class ForgotPassword(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    student_id = db.Column(db.Integer, nullable=False)
+    reason = db.Column(db.String(255), nullable=False)
+    created_date = db.Column(db.DateTime(timezone=True), default=func.now())

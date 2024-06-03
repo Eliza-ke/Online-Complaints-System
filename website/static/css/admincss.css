@@ -8,19 +8,23 @@ body {
     position: fixed;
     background-color: #d5d6d7;
     color: #fff;
-    padding-top: 20px;
     box-shadow: 2px 0 5px rgba(0,0,0,0.1);
 }
 .sidebar a {
     color: #000000;
     text-decoration: none;
     display: block;
-    padding: 10px 20px;
+    padding: 15px;
     transition: background-color 0.3s;
 }
-.sidebar a:hover, .sidebar .nav-item.active a {
-    background-color: #495057;
-    color: #fff;
+.general {
+    padding: 15px;
+    color: rgb(0, 0, 0);
+    background-color: #858585;
+}
+.sidebar a:hover{
+    background-color: #94949452;
+    color: black;
 }
 .sidebar .nav-item i {
     margin-right: 10px;
@@ -31,6 +35,18 @@ body {
     background-color: #f7f8fa;
     min-height: 100vh;
     width: calc(100% - 250px);
+}
+
+.admin_details{
+    color: rgb(255, 255, 255);
+    background-color: rgb(54, 61, 63);
+}
+#searchInput{
+    background-image: url('https://cdn1.iconfinder.com/data/icons/hawcons/32/698627-icon-111-search-512.png');
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: 30px;
+    margin-bottom: 12px;
 }
 .navbar {
     background-color: #fff;
@@ -51,22 +67,9 @@ body {
 .table tbody tr:hover {
     background-color: #f1f1f1;
 }
-.btn-primary {
-    background-color: #007bff;
-    border: none;
-}
-.btn-primary:hover {
-    background-color: #0056b3;
-}
-.btn-danger {
-    background-color: #dc3545;
-    border: none;
-}
-.btn-danger:hover {
-    background-color: #c82333;
-}
-.btn-rounded {
-    border-radius: 50px;
+
+.dropdown-menu{
+    min-width: 25px;
 }
 
 .table-responsive {
@@ -81,18 +84,9 @@ body {
     vertical-align: middle;
 }
 .table td:first-child, .table th:first-child {
-    width: 5%;
+    width: 13%;
 }
 
-.admin_details{
-    color: rgb(255, 255, 255);
-    display: block;
-}
-
-.profile{
-    float: left;
-    margin: 2px;
-}
 .modalAdminCategory {
     display: none;
     position: fixed;
@@ -157,7 +151,7 @@ body {
     cursor: pointer;
 }
 
-
+/* delete student */
 .modaldeleteStudent {
     display: none;
     position: fixed;

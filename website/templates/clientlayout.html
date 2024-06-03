@@ -38,9 +38,13 @@
                         <i class="bi bi-person-fill"></i> Account
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="/sign_in">Sign in</a></li>
-                        <li><a class="dropdown-item" href="/sign_out">Sign out</a></li>
-                        <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                        {% if not session.get('student_id') %}
+                            <li><a class="dropdown-item" href="/sign_up">Create an Account</a></li>
+                            <li><a class="dropdown-item" href="/sign_in">Sign in</a></li>
+                        {% else %}
+                            <li><a class="dropdown-item" href="/profile">Profile</a></li>
+                            <li><a class="dropdown-item" href="/sign_out">Sign out</a></li>
+                        {% endif %}
                     </ul>
                 </li>
             </ul>

@@ -1,16 +1,19 @@
+import re
 from flask import flash, redirect, render_template, request, session, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
-from website.models import Admin, Student
+from website.models import Admin, ForgotPassword, Student
 from website.web_config import db
 
 def signin():
-    # admin_create()
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
         
-        if not email or not password:
-            flash('Please fill email or password fields', category='error')
+        if not email:
+            flash('Please fill email', 'authfillerror')
+            return redirect(url_for('SignIn'))
+        if not password:
+            flash('Please fill password', 'authfillerror')
             return redirect(url_for('SignIn'))
         
         student = Student.query.filter_by(student_email=email).first()
@@ -18,15 +21,13 @@ def signin():
 
         if student:
             if check_password_hash(student.student_password, password):
-                flash("sign in successfully!", category='success')
                 session['student_id'] = student.id
                 return redirect(url_for('home'))
             else:
-                flash('Incorrect password', category='error')
+                flash('Incorrect password', 'autherror')
                 return redirect(url_for('SignIn'))
         elif admin:
             if check_password_hash(admin.admin_password, password):
-                flash("sign in successfully!", category='success')
                 myadmin = {
                             "admin_id": admin.id,
                             "admin_name": admin.admin_name,
@@ -37,12 +38,20 @@ def signin():
                 session['admin'] = myadmin
                 return redirect(url_for('viewCategory'))
             else:
-                flash('Incorrect password', category='error')
+                flash('Incorrect password', 'autherror')
                 return redirect(url_for('SignIn'))
         else:    
-            flash('Email does not exist.', category='error')
+            flash('Email does not exist.', 'autherror')
     return render_template("signinform.html")
 
+def strongPassword(password):
+    pw_pattern = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
+    return re.match(pw_pattern, password ) is not None
+
+def emailPattern(email):
+    e_pattern = "[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+"
+    return re.match(e_pattern, email) is not None
+    
 def signup():
     if request.method == 'POST':
         name = request.form.get("name")
@@ -55,27 +64,34 @@ def signup():
 
         student_info = Student.query.filter_by(student_email=email).first()
         if student_info:
-            flash('email is already exist', category='error')
-        elif len(email) < 5:
-            flash('Invaild email', category='error')
+            flash('email is already exist', 'autherror')
+        elif not email:
+            flash('Please fill your Email', 'autherror')
             return redirect(url_for('Signup'))
-        elif len(name) < 2:
-            flash('Name must be longer than 2 letters', category='error')
+        elif not name:
+            flash('Please fill your Name', 'autherror')
             return redirect(url_for('Signup'))
-        elif len(year) < 2:
-            flash('Batch must be longer than 2 letter', category='error')
+        elif not year:
+            flash('Please select a year', 'autherror')
             return redirect(url_for('Signup'))
-        elif len(major) < 2:
-            flash('Major must be longer than 2 letter', category='error')
+        elif not major:
+            flash('Please select a major', 'autherror')
             return redirect(url_for('Signup'))
-        elif len(phone) < 5:
-            flash('Phone Number must be longer than 5 letters', category='error')
+        elif not phone or len(phone) < 7:
+            flash('Please fill your real phone number', 'autherror')
             return redirect(url_for('Signup'))
-        elif len(password1) < 7:
-            flash('Password must be greater than 7', category='error')
+        elif not password1:
+            flash('Please fill password', 'autherror')
+        elif not password2:
+            flash('Please fill confirm password', 'autherror')
+        elif not emailPattern(email):
+            flash('Invaild email', 'autherror')
             return redirect(url_for('Signup'))
         elif password1 != password2:
-            flash('Password does not match', category='error')
+            flash('Password does not match', 'autherror')
+            return redirect(url_for('Signup'))
+        elif not strongPassword(password1) and len(password1) < 8:
+            flash('Password must be included Uppercase, Lowercase, Number and Special Characters. Password length must be greater than 8 characters', 'autherror')
             return redirect(url_for('Signup'))
         else:
             profileImg = "defaultprofile.png"
@@ -90,12 +106,45 @@ def signup():
             )
             db.session.add(new_student)
             db.session.commit()
-            flash("Account created successfully!", category='success')
+            flash("Account created successfully!", 'authsuccess')
             return redirect(url_for('SignIn'))
         
     return render_template("signupform.html")
             
-    
+
+def forgotpassword():
+
+    if request.method == 'POST':
+        name = request.form.get('name')
+        email = request.form.get('email')
+        reason = request.form.get('reason')
+        
+        if not name:
+            flash('Please fill name', 'forgotpassworderror')
+            return redirect(url_for('forgotPassword'))
+        
+        if not email:
+            flash('Please fill email', 'forgotpassworderror')
+            return redirect(url_for('forgotPassword'))
+        
+        if not reason:
+            flash('Please fill reason for reset password', 'forgotpassworderror')
+            return redirect(url_for('forgotPassword'))
+        
+        student = Student.query.filter_by(student_email=email, student_name=name).first()
+
+        if student:
+            student_id = student.id
+            new_forgotpassword = ForgotPassword(student_id=student_id, reason=reason)
+            db.session.add(new_forgotpassword)
+            db.session.commit()
+            print("successfully submitted!!!")
+            return redirect(url_for('home'))
+        else:    
+            flash('Your account does not exist.', category='forgotpassworderror')
+    return render_template("forgotPassword.html")
+
+
 # def admin_create():
 #     profileImg = "defaultprofile.png"
 #     new_admin = Admin(
@@ -107,4 +156,6 @@ def signup():
 #     )
 #     db.session.add(new_admin)
 #     db.session.commit()            
+            
+            
             
