@@ -1,4 +1,5 @@
 import os
+import re
 from flask import Flask, flash, jsonify, redirect, render_template, request, session, url_for
 from website.models import Admin, Category, Complaints, ForgotPassword, Student
 from website.web_config import db
@@ -31,7 +32,7 @@ def addcategory():
         if not categoryName:
             flash("Please fill category name", "caterror")
             return redirect(url_for("addCategory"))
-        
+
         if not description:
             flash("Please fill description", "caterror")
             return redirect(url_for("addCategory"))
@@ -221,7 +222,7 @@ def adminprofile():
 
     if request.method == 'POST':
         if 'profileImage' not in request.files:
-            flash('No file part', 'adminprofilerror')
+            flash('No file part', 'adminInfoerror')
             return redirect(request.url)
         file = request.files['profileImage']
 
@@ -246,6 +247,11 @@ def adminprofile():
     return render_template('adminprofile.html', user=admin)
 
 
+def emailPattern(email):
+    e_pattern = "[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+"
+    return re.match(e_pattern, email) is not None
+
+
 # update admin information
 def updateadmininformation():
     user_id = session.get('admin_id')
@@ -256,29 +262,33 @@ def updateadmininformation():
         email = request.form.get('email')
         phone = request.form.get("phone")
 
-        if len(email) < 5:
-            flash('Invaild email', category='error')
-        elif len(name) < 2:
-            flash('Name must be longer than 2 letters', category='error')
-        elif len(phone) < 5:
-            flash('Phone Number must be longer than 5 letters', category='error')
-        else:
-            admin.admin_name = name
-            admin.admin_email = email
-            admin.admin_phone = phone
-            db.session.commit()
-            admin = Admin.query.filter_by(id=user_id).first()
-            myadmin = {
-                "admin_id": admin.id,
-                "admin_name": admin.admin_name,
-                "admin_email": admin.admin_email,
-                "admin_profile": admin.admin_image,
-            }
-            session['admin'] = myadmin
-            print("update successfully")
+        if not email:
+            flash('Please fill email', 'adminInfoerror')
+            return redirect(url_for('adminProfile'))
+        if not emailPattern(email):
+            flash('Invaild email', 'adminInfoerror')
+            return redirect(url_for('adminProfile'))
+        if not name:
+            flash('Please fill name', 'adminInfoerror')
+            return redirect(url_for('adminProfile'))
+        if not phone:
+            flash('Please fill phone', 'adminInfoerror')
             return redirect(url_for('adminProfile'))
 
-        return render_template('adminprofile.html', user=admin)
+        admin.admin_name = name
+        admin.admin_email = email
+        admin.admin_phone = phone
+        db.session.commit()
+        admin = Admin.query.filter_by(id=user_id).first()
+        myadmin = {
+            "admin_id": admin.id,
+            "admin_name": admin.admin_name,
+            "admin_email": admin.admin_email,
+            "admin_profile": admin.admin_image,
+        }
+        session['admin'] = myadmin
+        print("update successfully")
+        return redirect(url_for('adminProfile'))
 
 
 def viewresetpassword():
@@ -303,3 +313,33 @@ def resetpassword(stid):
     flash(f"{student.student_name} Account password has been reset successfully ", 'resetsuccess')
     print("successfully reset")
     return redirect(url_for('viewResetPassword'))
+
+
+def admindashboard():
+    
+    allcategory = Category.query.all()
+    allstudent = Student.query.all()
+    allcomplaints = Complaints.query.all()
+    
+    countcat = len(allcategory)
+    countst = len(allstudent)
+    countcom = len(allcomplaints)
+    
+    allcount = {'countcat': countcat, 'countst': countst, 'countcom': countcom}
+    
+    # which category issue do the student occur the most?
+    distinct_category = db.session.query(Complaints.category_id).distinct().all()
+    category_names = {category.id: category.cat_name for category in allcategory}
+    category_complaints = {}
+    for cat in distinct_category:
+        count = Complaints.query.filter_by(category_id=cat[0]).count()
+        category_complaints[cat[0]] = count
+    
+    category_labels=[]
+    keys = list(category_complaints.keys())
+    for data in keys:
+        label = category_names.get(data, "Something")
+        category_labels.append(label)
+        
+    category_values = list(category_complaints.values())  
+    return render_template("admindashboard.html", allcount=allcount, category_labels=category_labels, category_values=category_values )

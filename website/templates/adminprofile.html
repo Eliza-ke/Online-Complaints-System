@@ -2,40 +2,39 @@
 {% with messages = get_flashed_messages(with_categories=true) %}
 {% if messages %}
     {% for category, message in messages %}
+      {% if category == 'adminInfoerror' %}
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
             {{ message }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
+        {% endif %}
     {% endfor %}
 {% endif %}
 {% endwith %}
 <div class="d-flex justify-content-center align-items-center">
 <div
-  class="shadow p-3 bg-body-tertiary rounded" 
+  class=" p-3 bg-body-tertiary rounded" 
   style="background-color: white; width:60%;"
 >
 
   <div class="container text-center" >
-    <h2 class="m-5">Admin Profile</h2>
-    <div class="row">
-      <div class="col-md-4">
-        <img
-          src="{{ url_for('static', filename='images/'+ user.admin_image) }}"
-          alt="Welcome Image"
-          class="img-fluid rounded-circle"
-          style="width: 150px; height: 150px"
-        />
-        <form enctype="multipart/form-data" method="POST">
-                <label for="profileImage" style="text-decoration:underline">
-                    Edit Image
-                </label>
-                <input type="file" onchange="this.form.submit()" name="profileImage" id="profileImage" style="display: none;">
-        </form>
-        <div style="margin-top:90px; margin-bottom:20px">
-            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editprofileModal">Edit Information</button>
-        </div>
-      </div>
-      <div class="col-md-8">
+    <h2 class="mt-4 mb-5">Admin Profile</h2>
+    <div class="">
+      <img
+        src="{{ url_for('static', filename='images/'+ user.admin_image) }}"
+        alt="Welcome Image"
+        class="img-fluid rounded-circle"
+        style="width: 130px; height: 130px"
+      />
+      <form enctype="multipart/form-data" method="POST">
+              <label for="profileImage" style="text-decoration:underline">
+                  Edit Image
+              </label>
+              <input type="file" onchange="this.form.submit()" name="profileImage" id="profileImage" style="display: none;">
+      </form>
+    </div>
+
+    <div class="m-5">
         <div class="row p-2 ">
           <div class="col-md-6">Name</div>
           <div class="col-md-6">{{ user.admin_name }}</div>
@@ -49,7 +48,9 @@
           <div class="col-md-6">{{ user.admin_phone}}</div>
         </div>
       </div>
-    </div>
+        <div class="mb-4">
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editprofileModal">Edit Information</button>
+      </div>
   </div>
   
 </div>

@@ -1,0 +1,70 @@
+{% extends "adminlayout.html" %} {% block title %}Dashboard Page{% endblock%} {%
+block content %}
+
+<h2 class="my-3">Dashboard</h2>
+<div class="container p-4 mb-5 rounded text-center table-responsive">
+  <div class="row">
+    <div class="col">
+      <div class="p-3 mb-2 bg-primary text-white rounded-3">
+        <h4>Categories of The System</h4>
+        <h5>Total Categories: {{ allcount['countcat'] }}</h5>
+      </div>
+    </div>
+    <div class="col">
+      <div class="p-3 mb-2 bg-warning text-white rounded-3">
+        <h4>Users of the system</h4>
+        <h5>Total users: {{ allcount['countst'] }}</h5>
+      </div>
+    </div>
+    <div class="col">
+      <div class="p-3 mb-2 bg-success text-white rounded-3">
+        <h4>Complaints</h4>
+        <h5>Total complaints: {{ allcount['countcom'] }}</h5>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <div class="m-5" style="width:400px">
+        <canvas id="barchart1"></canvas>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="m-5" style="width:400px">
+        <canvas id="barchart2"></canvas>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  var ctx1 = document.getElementById('barchart1');
+  const labelarr = {{ category_labels | tojson }};
+
+  var myChart1 = new Chart(ctx1, {
+      type: 'bar',
+      data: {
+          labels: labelarr,
+          datasets: [{
+              label: 'Complaints by category issue',
+              data: {{ category_values }},
+              backgroundColor: [
+              'rgba(75, 192, 192, 0.5)',
+              ],
+              borderColor: [
+              'rgb(75, 192, 192)',
+              ],
+              borderWidth: 1
+          }]
+      },
+      options: {
+          scales: {
+              y: {
+                  beginAtZero: true
+              }
+          }
+      }
+  });
+</script>
+{% endblock %}

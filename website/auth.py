@@ -36,7 +36,7 @@ def signin():
                         }
                 session['admin_id'] = admin.id
                 session['admin'] = myadmin
-                return redirect(url_for('viewCategory'))
+                return redirect(url_for('adminDashboard'))
             else:
                 flash('Incorrect password', 'autherror')
                 return redirect(url_for('SignIn'))

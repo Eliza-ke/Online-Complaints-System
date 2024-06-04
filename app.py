@@ -1,12 +1,12 @@
 from flask import render_template, redirect, session, url_for
-from website.adminfeatures import addcategory, adminprofile, changestate, deletecategory, deletestudent, filtercategory, filterstatus, resetpassword, updateadmininformation, updatecategory, viewcategory, viewcomplaints, viewresetpassword, viewstudent
+from website.adminfeatures import addcategory, admindashboard, adminprofile, changestate, deletecategory, deletestudent, filtercategory, filterstatus, resetpassword, updateadmininformation, updatecategory, viewcategory, viewcomplaints, viewresetpassword, viewstudent
 from website.auth import forgotpassword, signin, signup
 from website.clientfeatures import clientprofile, send_complaint, updateclientinformation
 from website.web_config import create_app
 
 app = create_app()
 
-@app.route('/home', methods=['GET','POST'])
+@app.route('/', methods=['GET','POST'])
 def home():
     return render_template("homepage.html")
 
@@ -154,6 +154,14 @@ def resetPassword(stid):
         return redirect(url_for('SignIn'))
     else:
         return resetpassword(stid)
+    
+    
+@app.route('/adminDashboard', methods=['GET', 'POST'])
+def adminDashboard():
+    if 'admin_id' not in session:
+        return redirect(url_for('SignIn'))
+    else:
+        return admindashboard()
     
 
     

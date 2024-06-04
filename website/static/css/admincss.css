@@ -69,7 +69,7 @@ body {
 }
 
 .dropdown-menu{
-    min-width: 25px;
+    min-width: 120px;
 }
 
 .table-responsive {

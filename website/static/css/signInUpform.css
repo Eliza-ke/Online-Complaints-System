@@ -1,0 +1,13 @@
+
+.input-group-text {
+    min-width: 45px;
+    justify-content: center;
+}
+.form-control, .form-select {
+    height: 45px; 
+}
+.left-box img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 1rem;
+}
