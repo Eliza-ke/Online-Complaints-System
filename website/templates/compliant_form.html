@@ -21,6 +21,12 @@
     <div class="container complaintform shadow p-3 my-5 bg-body-tertiary rounded">
         <h2 class="text-center">Student Complaint Form</h2>
         <p class="form-caption">Please use this form to voice any concerns</p>
+
+        <div class="row">
+        <div class="col-md-6">
+            <img src="{{ url_for('static', filename='images/reg_photo.jpg') }}" class="img-fluid rounded-4 align-items-center h-100 w-100" style="object-fit:cover;">
+        </div>
+        <div class="col-md-6">
         <form method="POST">
             <div class="mb-3">
                 <label for="name" class="form-label">Name</label>
@@ -49,6 +55,12 @@
             </div>
             <button type="submit" class="btn btn-primary w-100" id="liveToastBtn">Submit</button>
         </form>
+    </div>
+
+
+
+
+</div>
     </div> 
 
 {% endblock %}

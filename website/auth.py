@@ -1,5 +1,5 @@
 import re
-from flask import flash, redirect, render_template, request, session, url_for
+from flask import flash, jsonify, redirect, render_template, request, session, url_for
 from werkzeug.security import generate_password_hash, check_password_hash
 from website.models import Admin, ForgotPassword, Student
 from website.web_config import db
@@ -118,18 +118,18 @@ def forgotpassword():
         name = request.form.get('name')
         email = request.form.get('email')
         reason = request.form.get('reason')
-        
+
         if not name:
-            flash('Please fill name', 'forgotpassworderror')
-            return redirect(url_for('forgotPassword'))
-        
+            return jsonify(fail=True, message ='*** Please fill name')
+
         if not email:
-            flash('Please fill email', 'forgotpassworderror')
-            return redirect(url_for('forgotPassword'))
+            return jsonify(fail=True, message ='*** Please fill email')
         
+        if not emailPattern(email):
+            return jsonify(fail=True, message ='*** Invalid email')
+            
         if not reason:
-            flash('Please fill reason for reset password', 'forgotpassworderror')
-            return redirect(url_for('forgotPassword'))
+            return jsonify(fail=True, message ='*** Please fill reason for reset password')
         
         student = Student.query.filter_by(student_email=email, student_name=name).first()
 
@@ -138,10 +138,11 @@ def forgotpassword():
             new_forgotpassword = ForgotPassword(student_id=student_id, reason=reason)
             db.session.add(new_forgotpassword)
             db.session.commit()
-            print("successfully submitted!!!")
-            return redirect(url_for('home'))
+
+            return jsonify(success=True, message =' You submitted forgot password reason successfully ')
         else:    
-            flash('Your account does not exist.', category='forgotpassworderror')
+            return jsonify(fail=True, message ='*** Account does not exist')
+
     return render_template("forgotPassword.html")
 
 

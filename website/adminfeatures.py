@@ -304,14 +304,16 @@ def viewresetpassword():
 
 def resetpassword(stid):
     student = Student.query.get(stid)
-    student.password = generate_password_hash(
+    student.student_password = generate_password_hash(
         "abc123ABC", method='pbkdf2:sha256')
-
-    account = ForgotPassword.query.get(stid)
-    db.session.delete(account)
+    
     db.session.commit()
+    
+    account = ForgotPassword.query.filter_by(student_id=stid)
+    for acc in account:
+        db.session.delete(acc)
+        db.session.commit()
     flash(f"{student.student_name} Account password has been reset successfully ", 'resetsuccess')
-    print("successfully reset")
     return redirect(url_for('viewResetPassword'))
 
 

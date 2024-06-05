@@ -1,4 +1,7 @@
-
+body {
+    background-image: linear-gradient(to right, #00308F,#0066b2, #6699CC);
+    background-size: cover;
+}
 .input-group-text {
     min-width: 45px;
     justify-content: center;

@@ -1,9 +1,11 @@
 import os
 import re
-from flask import Flask, flash, redirect, render_template, request, session, url_for
+from flask import Flask, flash, jsonify, redirect, render_template, request, session, url_for
 from website.web_config import db
 from website.models import Category, Complaints, Student
 from werkzeug.utils import secure_filename
+from werkzeug.security import generate_password_hash, check_password_hash
+
 app = Flask(__name__)
 
 def send_complaint():
@@ -128,3 +130,57 @@ def updateclientinformation():
         db.session.commit()
 
         return redirect(url_for('clientProfile'))
+    
+    
+def oldpassword():
+    
+    if request.method == 'POST':
+        stid = request.form.get("stid")
+        oldpassword = request.form.get("oldpassword")
+        
+        if not oldpassword:
+            flash('Please fill your old password', 'oldpasswordfill')
+            return redirect(url_for('oldPassword'))
+        
+        student = Student.query.get(stid)
+        
+        if check_password_hash(student.student_password, oldpassword):
+            return redirect(url_for('changePassword'))
+        else:
+            flash('Incorrect old password', 'oldpassworderror')
+            return redirect(url_for('oldPassword'))
+            
+    return render_template("oldpassword.html")
+    
+    
+def strongPassword(password):
+    pw_pattern = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
+    return re.match(pw_pattern, password ) is not None    
+    
+def changepassword():
+    
+    if request.method == 'POST':
+        stid = request.form.get("stid")
+        password1 = request.form.get("password1")
+        password2 = request.form.get("password2")
+        
+        if not password1:
+            return jsonify(fail=True, message ='*** Please fill new password')
+        
+        if not password2:
+            return jsonify(fail=True, message='*** Please fill confirm password')
+        
+        student = Student.query.get(stid)
+        
+        if not strongPassword(password1) and len(password1) < 8:
+            return jsonify(fail=True, message = '*** Password must be included Uppercase, Lowercase, Number and Special Characters. Password length must be greater than 8 characters')
+        
+        if password1 == password2:
+            student.student_password = generate_password_hash(password1, method='pbkdf2:sha256')
+            db.session.commit()
+            return jsonify(success=True, message = "Your Password has been changed Successfully.")
+
+        else:
+            return jsonify(fail=True, message = '*** Passwords do not match')    
+        
+    return render_template("changepassword.html")

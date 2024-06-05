@@ -1,7 +1,7 @@
 from flask import render_template, redirect, session, url_for
 from website.adminfeatures import addcategory, admindashboard, adminprofile, changestate, deletecategory, deletestudent, filtercategory, filterstatus, resetpassword, updateadmininformation, updatecategory, viewcategory, viewcomplaints, viewresetpassword, viewstudent
 from website.auth import forgotpassword, signin, signup
-from website.clientfeatures import clientprofile, send_complaint, updateclientinformation
+from website.clientfeatures import changepassword, clientprofile, oldpassword, send_complaint, updateclientinformation
 from website.web_config import create_app
 
 app = create_app()
@@ -32,8 +32,22 @@ def forgotPassword():
 
 @app.route('/complaint_form', methods=['GET', 'POST'])
 def com_send_message():
-    if 'student_id' in session or 'admin_id' in session:
+    if 'student_id' in session:
         return send_complaint()
+    else:
+        return redirect(url_for('SignIn'))
+
+@app.route('/oldPassword', methods=['GET', 'POST'])
+def oldPassword():
+    if 'student_id' in session:
+        return oldpassword()
+    else:
+        return redirect(url_for('SignIn'))
+    
+@app.route('/changePassword', methods=['GET', 'POST'])
+def changePassword():
+    if 'student_id' in session:
+        return changepassword()
     else:
         return redirect(url_for('SignIn'))
     
