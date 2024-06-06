@@ -15,11 +15,21 @@ def send_complaint():
     if student:
         if request.method == 'POST':
             category = request.form['category']
-            complaintDetails = request.form['complaintDetails']
+            complaintDetails = request.form['complaintDetails']            
 
-            if not category or not complaintDetails:
-                flash('Please fill out field category or complaintDetails', 'complaintsformerror')
+            if not category:
+                flash('Please fill out field category', 'complaintsformerror')
                 print("please fill out this field")
+                return redirect(url_for('com_send_message'))
+            
+            if not complaintDetails:
+                flash('Please fill out field complaints details', 'complaintsformerror')
+                print("please fill out this field")
+                return redirect(url_for('com_send_message'))
+            
+            if 'agree' not in request.form:
+                flash('Please make sure agree to the term & condition', 'complaintsformerror')
+                print("please fill out term and condition")
                 return redirect(url_for('com_send_message'))
 
             new_complaint = Complaints(

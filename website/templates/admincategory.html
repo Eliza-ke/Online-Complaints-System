@@ -1,7 +1,7 @@
 {% extends "adminlayout.html" %} {% block title %}Category Page{% endblock%} 
 {% block content %}
 <h2 class="mt-4">Manage Category</h2>
-<a href="/addCategory" class="btn btn-outline-dark btn-rounded my-3"><i class="fas fa-plus"></i> Add Category</a>
+<a href="/addCategory" class="btn btn-outline-dark rounded-pill my-3"><i class="fas fa-plus"></i> Add Category</a>
 
 {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}

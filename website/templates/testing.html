@@ -20,7 +20,7 @@
     {% endwith %}
     
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
-        <div class="col-md-8 col-lg-5 col-12 body rounded-5 p-3 bg-white shadow box-area">
+        <div class="col-md-8 col-lg-6 col-12 body rounded-5 p-3 bg-white shadow box-area">
             <div class="d-flex justify-content-center align-items-center flex-column">
                 <div class="w-100">
                     <div class="header-text mb-4 text-center">
@@ -29,7 +29,7 @@
                     </div>
                     <form method="POST">
                         <div class="mb-3 d-flex align-items-center">
-                            <label for="name" class="form-label">Name</label>
+                            <label for="username" class="form-label">Username</label>
                             <input type="text" class="form-control" name="name" id="name" value="{{user.student_name}}" disabled readonly>
                         </div>
                         <div class="mb-3 d-flex align-items-center">
@@ -41,33 +41,27 @@
                             <input type="major" class="form-control" name="major" id="major" value="{{user.student_major}}" disabled readonly>
                         </div>
                         <div class="mb-3 d-flex align-items-center">
-                            <label for="category" class="form-label">Issue Type</label>
-                            <select class="form-select" name="category" id="category" required>
+                            <label for="category" class="form-label">Complaint Factor</label>
+                            <select class="form-select" name="category" id="category">
                                 <option value="">Select a category</option>
                                 {% for cat in category: %}
-                                <option value="{{cat.id}}">{{ cat.cat_name }}</option>
+                                    <option value="{{cat.id}}">{{ cat.cat_name }}</option>
                                 {% endfor %}
                             </select>
                         </div>
-                        
+
                         <div class="mb-3">
-                            <label for="complaintDetails" class="form-label">Complaints Details</label>
-                            <textarea class="form-control" name="complaintDetails" id="complaintDetails" rows="4" placeholder="Tell about your problem in Details" required></textarea>
+                            <label for="complaintDetails" class="form-label">Tell me about your problem</label>
+                            <textarea class="form-control" name="complaintDetails" id="complaintDetails" rows="4" placeholder="Tell about your problem in Details"></textarea>
                         </div>
-                        <div class="mb-3 d-flex align-items-center">
-                            <input class="form-check-input m-1" type="checkbox" id="agree" name="agree">
-                            <label class="form-check-label" for="agree">
-                                Yes, I agree to <a href="/#termsNconditions"> the Terms and Conditions. </a>
-                            </label>
-                        </div>
+
                         <div class="input-group mb-3">
-                            <button type="submit" class="btn btn-lg btn-primary w-100 fs-6 rounded-5" id="submitcomplaint" disabled>Submit</button>
+                            <button type="submit" class="btn btn-lg btn-primary w-100 fs-6">Submit</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
     </div>    
-    <script src="{{ url_for('static', filename='javascript/checkedndisabled.js') }}"></script>
 
 {% endblock %}

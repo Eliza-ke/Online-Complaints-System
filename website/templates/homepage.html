@@ -1,223 +1,517 @@
-{% extends "clientlayout.html" %} {% block title %}Home Page{% endblock%}
-{% block content %}
-<div class="container-fluid">
-    <div class="d-flex align-items-center justify-content-center">
-        <img src="{{ url_for('static', filename='images/background2.png/') }}" class="image">
-
-        <div class="justify-content-center container">
-            <div class="text-body my-3 d-md-block">
-                <h2>Welcome to Online Complaints System</h2>
-                <p class="py-3">We support an online complaints system for the students to hear students' voices. Your
-                    complaints will be managed by the responsible person. You can freely report your complaints here.
-                </p>
-                <a href="/complaint_form" class="btn btn-warning">Complaint</a>
-
-            </div>
-        </div>
+{% extends "clientlayout.html" %} {% block title %}Home Page{% endblock%} {%
+block content %}
+<div class="container-fluid" id="main-content">
+  <div class="d-flex align-items-center justify-content-center">
+    <img
+      src="{{ url_for('static', filename='images/first-removebg.png/') }}"
+      class="image"
+    />
+    <div class="justify-content-center container">
+      <div class="text-body my-3 d-md-block">
+        <h2>
+          <span class="welcome-text">Welcome to</span><br /><span
+            class="online-complaints-text"
+            >Online Complaints System</span
+          >
+        </h2>
+        <p class="py-3">
+          We support an online complaints system for the students to hear
+          students' voices. Your complaints will be managed by the responsible
+          person. You can freely report your complaints here.
+        </p>
+        <a href="/complaint_form" class="btn btn-warning btn-lift">Complaint</a>
+      </div>
     </div>
+  </div>
 
-    <div class="container my-3">
-        <div class="row py-3">
-            <div class="col bg-light py-3">
-                <h3 class="text-center">Belief</h3>
-                <p class="text-justify">
-                    We believe our students' strong and effective complaints can help to improve quality of services and
-                    administration.
-                </p>
-            </div>
-            <div class="col bg-light mx-3 py-3">
-                <h3 class="text-center">Target</h3>
-                <p class="text-justify">
-                    We aim to solve the problems within one week. For the administration level complaints, we need to
-                    take more time and so we hope to finish the process within a month.
-                </p>
-            </div>
-            <div class="col bg-light py-3">
-                <h3 class="text-center">Supports</h3>
-                <p class="text-justify">
-                    To report complaints easily, we support this system with simple and user-friendly features. Students
-                    need to choose related categories for their complaints.
-                </p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col bg-light mx-3 py-3">
-                <h3 class="text-center">How to communicate with us?</h3>
-                <p class="text-justify">
-                    You can communicate by phone, email and contact us using this system. You can discuss any
-                    difficulties in our university with us.
-                </p>
-            </div>
-            <div class="col bg-light mx-3 py-3">
-                <h3 class="text-center">Can we complaints the system?</h3>
-                <p class="text-justify">
-                    Of course, you can complaint about any difficulties of using this system. This system is a part of
-                    the university and your complaints can make better changes to this system.
-                </p>
-            </div>
+  <div class="ag-format-container">
+    <div class="ag-courses_box">
+      <div class="ag-courses_item">
+        <a href="#" class="ag-courses-item_link">
+          <div class="ag-courses-item_bg"></div>
 
-        </div>
+          <div class="ag-courses-item_title">Belief</div>
+
+          <div class="ag-courses-item_date-box">
+            <span class="ag-courses-item_date">
+              We believe our students' strong and effective complaints can help
+              to improve quality of services and administration.
+            </span>
+          </div>
+        </a>
+      </div>
+
+      <div class="ag-courses_item">
+        <a href="#" class="ag-courses-item_link">
+          <div class="ag-courses-item_bg"></div>
+
+          <div class="ag-courses-item_title">Target</div>
+
+          <div class="ag-courses-item_date-box">
+            <span class="ag-courses-item_date">
+              We aim to solve the problems within one week. For the
+              administration level complaints, we need to take more time and so
+              we hope to finish the process within a month.
+            </span>
+          </div>
+        </a>
+      </div>
+
+      <div class="ag-courses_item">
+        <a href="#" class="ag-courses-item_link">
+          <div class="ag-courses-item_bg"></div>
+
+          <div class="ag-courses-item_title">Supports</div>
+
+          <div class="ag-courses-item_date-box">
+            Start:
+            <span class="ag-courses-item_date">
+              To report complaints easily, we support this system with simple
+              and user-friendly features. Students need to choose related
+              categories for their complaints.
+            </span>
+          </div>
+        </a>
+      </div>
+
+      <div class="ag-courses_item">
+        <a href="#" class="ag-courses-item_link">
+          <div class="ag-courses-item_bg"></div>
+
+          <div class="ag-courses-item_title">How to communicate with us?</div>
+
+          <div class="ag-courses-item_date-box">
+            <span class="ag-courses-item_date">
+              You can communicate by phone, email and contact us using this
+              system. You can discuss any difficulties in our university with
+              us.
+            </span>
+          </div>
+        </a>
+      </div>
+
+      <div class="ag-courses_item">
+        <a href="#" class="ag-courses-item_link">
+          <div class="ag-courses-item_bg"></div>
+
+          <div class="ag-courses-item_title">Can we complaints the system?</div>
+
+          <div class="ag-courses-item_date-box">
+            <span class="ag-courses-item_date">
+              Of course, you can complaint about any difficulties of using this
+              system. This system is a part of the university and your
+              complaints can make better changes to this system.
+            </span>
+          </div>
+        </a>
+      </div>
     </div>
+  </div>
 
-    <div id="carouselExampleControls" class="carousel carousel-dark slide" data-bs-ride="carousel">
-        <div class="carousel-inner py-3">
-            <div class="carousel-item active">
-                <div class="cards-wrapper">
-                    <div class="card" style="width: 15rem;">
-                        <img src="{{ url_for('static', filename='images/complaint.png/') }}" class="card-img-top"
-                            alt="...">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Category Name</h5>
-                            <p>Details</p>
-                            <a href="#" class="btn btn-primary my-2 rounded-pill">Report</a>
-                        </div>
-                    </div>
-                    <div class="card" style="width: 15rem;">
-                        <img src="{{ url_for('static', filename='images/complaint.png/') }}" class="card-img-top"
-                            alt="...">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Category Name</h5>
-                            <p>Details</p>
-                            <a href="#" class="btn btn-primary my-2 rounded-pill">Report</a>
-                        </div>
-                    </div>
-                    <div class="card" style="width: 15rem;">
-                        <img src="{{ url_for('static', filename='images/complaint.png/') }}" class="card-img-top"
-                            alt="...">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Category Name</h5>
-                            <p>Details</p>
-                            <a href="#" class="btn btn-primary my-2 rounded-pill">Report</a>
-                        </div>
-                    </div>
-                </div>
+  <div class="slide-container swiper">
+    <div class="slide-content">
+      <div class="card-wrapper swiper-wrapper">
+        <div class="card swiper-slide">
+          <div class="image-content">
+            <span class="overlay"></span>
+            <div class="card-image">
+              <img
+                src="{{ url_for('static', filename='images/complaint.png/') }}"
+                class="card-img-top circle-img"
+                alt="..."
+              />
             </div>
-
-            <div class="carousel-item">
-                <div class="cards-wrapper">
-                    <div class="card" style="width: 15rem;">
-                        <img src="{{ url_for('static', filename='images/complaint.png/') }}" class="card-img-top"
-                            alt="...">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Category Name</h5>
-                            <p>Details</p>
-                            <a href="#" class="btn btn-primary my-2 rounded-pill">Report</a>
-                        </div>
-                    </div>
-                    <div class="card" style="width: 15rem;">
-                        <img src="{{ url_for('static', filename='images/complaint.png/') }}" class="card-img-top"
-                            alt="...">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Category Name</h5>
-                            <p>Details</p>
-                            <a href="#" class="btn btn-primary my-2 rounded-pill">Report</a>
-                        </div>
-                    </div>
-                    <div class="card" style="width: 15rem;">
-                        <img src="{{ url_for('static', filename='images/complaint.png/') }}" class="card-img-top"
-                            alt="...">
-                        <div class="card-body text-center">
-                            <h5 class="card-title">Category Name</h5>
-                            <p>Details</p>
-                            <a href="#" class="btn btn-primary my-2 rounded-pill">Report</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
-            data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
-            data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-    </div>
-
-</div>
-<div class="container-fluid">
-    <div class="about">
-        <div class="row">
-
-            <div class="col">
-                <img src="{{ url_for('static', filename='images/banner.png/') }}">
-            </div>
-            <div class="col">
-                <h2>About us</h2>
-                <p>Our university is one of the popular IT universities in Yangon. Our university's mission is to
-                    educate and train students to improve creative thinking skills. Students are the most important part
-                    of the university. So we emphasize the rights of students. Our mission is to support better
-                    management
-                    for the students' future.</p>
-            </div>
-        </div>
-        <div class="row">
-
-            <div class="col">
-                <h2>Why choose?</h2>
-                <p>This system can help to report your complaints anytime from anywhere. We values student point of view
-                    to our university and we're always here to give better services.</p>
-            </div>
-            <div class="col">
-                <img src="{{ url_for('static', filename='images/intro.jpg/') }}">
-            </div>
-        </div>
-    </div>
-</div>
-<div class="container-fluid py-4">
-    <div class="row px-3">
-        <div class="col-6 mb-4 mb-lg-0">
-            <h2 class="font-weight-semi-bold text-uppercase mb-3 section-title text-left">
-                <span>Contact Us</span>
-            </h2>
-            <p>
-                We are always with you to give better services. Let's contact us to freely say how you think about our
-                university's management and systems' support.
-
+          </div>
+          <div class="card-content">
+            <h2 class="name">Category Name</h2>
+            <p class="description">
+              The lorem text the section that contains header with having open
+              functionality. Lorem dolor sit amet consectetur adipisicing elit.
             </p>
-            <div class="d-flex flex-column mb-3">
-                <h4 class="font-weight-semi-bold mb-3">Details</h4>
-                <p class="mb-2">
-                    <i class="bi bi-geo-alt-fill fs-4 px-3"></i>Location: Yangon
-                </p>
-                <p class="mb-2">
-                    <i class="bi bi-envelope-fill fs-4 px-3"></i>Email: infomyanmar@gmail.com
-                </p>
-                <p class="mb-2">
-                    <i class="bi bi-telephone-fill fs-4 px-3"></i>Phone: 09-88880000
-                </p>
+            <button class="button">View More</button>
+          </div>
+        </div>
+        <div class="card swiper-slide">
+          <div class="image-content">
+            <span class="overlay"></span>
+            <div class="card-image">
+              <img
+                src="{{ url_for('static', filename='images/complaint.png/') }}"
+                class="card-img-top circle-img"
+                alt="..."
+              />
             </div>
+          </div>
+          <div class="card-content">
+            <h2 class="name">Category Name</h2>
+            <p class="description">
+              The lorem text the section that contains header with having open
+              functionality. Lorem dolor sit amet consectetur adipisicing elit.
+            </p>
+            <button class="button">View More</button>
+          </div>
         </div>
-        <div class="col-6">
-            <form name="sentMessage" id="contactForm" novalidate="novalidate" class="form px-3">
-                <div class="form-group">
-                    <input type="text" class="form-control" id="name" placeholder="Enter your name here"
-                        required="required" />
-                    <p class="help-block text-muted"></p>
-                </div>
-
-                <div class="form-group">
-                    <input type="email" class="form-control" id="email" placeholder="Enter your email here"
-                        required="required" />
-                    <p class="help-block text-muted"></p>
-                </div>
-
-                <div class="form-group">
-                    <textarea class="form-control" rows="8" id="message" placeholder="Write your message here"
-                        required="required"></textarea>
-                    <p class="help-block text-muted"></p>
-                </div>
-
-                <div>
-                    <button class="btn btn-dark py-2 px-4" type="submit" id="sendMessageButton">
-                        Send Message
-                    </button>
-                </div>
-            </form>
+        <div class="card swiper-slide">
+          <div class="image-content">
+            <span class="overlay"></span>
+            <div class="card-image">
+              <img
+                src="{{ url_for('static', filename='images/complaint.png/') }}"
+                class="card-img-top circle-img"
+                alt="..."
+              />
+            </div>
+          </div>
+          <div class="card-content">
+            <h2 class="name">Category Name</h2>
+            <p class="description">
+              The lorem text the section that contains header with having open
+              functionality. Lorem dolor sit amet consectetur adipisicing elit.
+            </p>
+            <button class="button">View More</button>
+          </div>
         </div>
+        <div class="card swiper-slide">
+          <div class="image-content">
+            <span class="overlay"></span>
+            <div class="card-image">
+              <img
+                src="{{ url_for('static', filename='images/complaint.png/') }}"
+                class="card-img-top circle-img"
+                alt="..."
+              />
+            </div>
+          </div>
+          <div class="card-content">
+            <h2 class="name">Category Name</h2>
+            <p class="description">
+              The lorem text the section that contains header with having open
+              functionality. Lorem dolor sit amet consectetur adipisicing elit.
+            </p>
+            <button class="button">View More</button>
+          </div>
+        </div>
+        <div class="card swiper-slide">
+          <div class="image-content">
+            <span class="overlay"></span>
+            <div class="card-image">
+              <img
+                src="{{ url_for('static', filename='images/complaint.png/') }}"
+                class="card-img-top circle-img"
+                alt="..."
+              />
+            </div>
+          </div>
+          <div class="card-content">
+            <h2 class="name">Category Name</h2>
+            <p class="description">
+              The lorem text the section that contains header with having open
+              functionality. Lorem dolor sit amet consectetur adipisicing elit.
+            </p>
+            <button class="button">View More</button>
+          </div>
+        </div>
+        <div class="card swiper-slide">
+          <div class="image-content">
+            <span class="overlay"></span>
+            <div class="card-image">
+              <img
+                src="{{ url_for('static', filename='images/complaint.png/') }}"
+                class="card-img-top circle-img"
+                alt="..."
+              />
+            </div>
+          </div>
+          <div class="card-content">
+            <h2 class="name">Category Name</h2>
+            <p class="description">
+              The lorem text the section that contains header with having open
+              functionality. Lorem dolor sit amet consectetur adipisicing elit.
+            </p>
+            <button class="button">View More</button>
+          </div>
+        </div>
+        <div class="card swiper-slide">
+          <div class="image-content">
+            <span class="overlay"></span>
+            <div class="card-image">
+              <img
+                src="{{ url_for('static', filename='images/complaint.png/') }}"
+                class="card-img-top circle-img"
+                alt="..."
+              />
+            </div>
+          </div>
+          <div class="card-content">
+            <h2 class="name">Category Name</h2>
+            <p class="description">
+              The lorem text the section that contains header with having open
+              functionality. Lorem dolor sit amet consectetur adipisicing elit.
+            </p>
+            <button class="button">View More</button>
+          </div>
+        </div>
+        <div class="card swiper-slide">
+          <div class="image-content">
+            <span class="overlay"></span>
+            <div class="card-image">
+              <img
+                src="{{ url_for('static', filename='images/complaint.png/') }}"
+                class="card-img-top circle-img"
+                alt="..."
+              />
+            </div>
+          </div>
+          <div class="card-content">
+            <h2 class="name">Category Name</h2>
+            <p class="description">
+              The lorem text the section that contains header with having open
+              functionality. Lorem dolor sit amet consectetur adipisicing elit.
+            </p>
+            <button class="button">View More</button>
+          </div>
+        </div>
+        <div class="card swiper-slide">
+          <div class="image-content">
+            <span class="overlay"></span>
+            <div class="card-image">
+              <img
+                src="{{ url_for('static', filename='images/complaint.png/') }}"
+                class="card-img-top circle-img"
+                alt="..."
+              />
+            </div>
+          </div>
+          <div class="card-content">
+            <h2 class="name">Category Name</h2>
+            <p class="description">
+              The lorem text the section that contains header with having open
+              functionality. Lorem dolor sit amet consectetur adipisicing elit.
+            </p>
+            <button class="button">View More</button>
+          </div>
+        </div>
+      </div>
     </div>
+    <div class="swiper-button-next swiper-navBtn"></div>
+    <div class="swiper-button-prev swiper-navBtn"></div>
+    <div class="swiper-pagination"></div>
+  </div>
+
+  <div id="about-us" class="container-fluid" style="margin-top: 100px">
+    <div class="about">
+      <div class="row">
+        <div class="col">
+          <img
+            src="{{ url_for('static', filename='images/banner.png/') }}"
+            class="float-3d"
+            style="border-radius: 15px"
+          />
+        </div>
+        <div class="col" style="margin-left: 20px">
+          <h2 style="margin-top: 20px">About Us</h2>
+          <h3>Info <span style="color: #e44002">Myanmar</span> University</h3>
+          <p>
+            Our university is one of the popular IT universities in Yangon. Our
+            university's mission is to educate and train students to improve
+            creative thinking skills. Students are the most important part of
+            the university. So we emphasize the rights of students. Our mission
+            is to support better management for the students' future.
+          </p>
+          <a href="https://imu.edu.mm/" class="btnn-details">More Details</a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <h2 style="margin-top: 50px">Why choose?</h2>
+          <p style="margin-top: 30px">
+            This system can help to report your complaints anytime from
+            anywhere.<br />
+            We values student point of view to our university and we're always
+            here to give better services.
+          </p>
+        </div>
+        <div class="col">
+          <img
+            src="{{ url_for('static', filename='images/intro.jpg/') }}"
+            class="float-3d"
+            style="border-radius: 15px"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="aboutus-section" id="termsNconditions">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-5 col-sm-6 col-xs-12">
+          <div class="aboutus">
+            <h2 class="aboutus-title">Terms and Conditions</h2>
+            <p class="aboutus-text">
+              You should read these terms and conditions to understand our
+              regulations and policy. This system is a critical part of the
+              school to reflect the students voice. As the complexity and number
+              of complaints increase, we need to take time and costs to provide
+              a solution to each problem.
+            </p>
+            <p class="aboutus-text">
+              Fake registered accounts and ineffective complaints can reduce the
+              speed of the problem solution steps. These terms and conditions
+              apply to students of the Info Myanmar University.
+            </p>
+          </div>
+        </div>
+        <div class="col-md-1 col-sm-6 col-xs-12">
+          <div class="aboutus-banner">
+            <img
+              src="http://themeinnovation.com/demo2/html/build-up/img/home1/about1.jpg"
+              alt=""
+            />
+          </div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+          <div class="feature">
+            <div class="feature-box">
+              <div class="clearfix">
+                <div class="iconset">
+                  <span class="glyphicon glyphicon-cog icon"></span>
+                </div>
+                <div class="feature-content">
+                  <h4>General terms and conditions</h4>
+                  <p>
+                    <ul>
+                        <li> 
+                            Students should add real information such as his/her real name, currently
+                            using email and major and year that he/she is actually
+                            attending in your registration form.
+                        </li>
+                        <li>
+                            Students should report a complaint form with accurate and
+                            suitable reason.
+                        </li>
+                    </ul>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="feature-box">
+              <div class="clearfix">
+                <div class="iconset">
+                  <span class="glyphicon glyphicon-cog icon"></span>
+                </div>
+                <div class="feature-content">
+                  <h4>Regulations and policy</h4>
+                  <p>
+                    <ul>
+                        <li>
+                            Students should agree to the terms and conditions of this
+                            system. If you don’t agree, you will not be able to submit a
+                            complaint form.
+                        </li>
+                        <li>
+                            Fake registered accounts will be deleted by the system
+                            admin.
+                        </li>
+                        <li>
+                            Complaints with no reasons will not be considered to take an
+                            action.
+                        </li>
+                    </ul>
+                  </p>
+                 
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="containerr" id="contact-us">
+    <span class="big-circle"></span>
+    <div class="form">
+      <div class="contact-info">
+        <h3 class="title">Contact Us</h3>
+        <p class="text">
+          We are always with you to give better services. Let's contact us to
+          freely say how you think about our university's management and
+          systems' support.
+        </p>
+
+        <div class="info">
+          <div class="information">
+            <img
+              src="{{ url_for('static', filename='images/location.png/') }}"
+              class="iconn"
+              alt=""
+            />
+            <p>Yangon</p>
+          </div>
+          <div class="information">
+            <img
+              src="{{ url_for('static', filename='images/email.png/') }}"
+              class="iconn"
+              alt=""
+            />
+            <p>Infomyanmar@gmail.com</p>
+          </div>
+          <div class="information">
+            <img
+              src="{{ url_for('static', filename='images/phone.png/') }}"
+              class="iconn"
+              alt=""
+            />
+            <p>09-88880000</p>
+          </div>
+        </div>
+
+        <div class="social-media">
+          <p>Connect with us :</p>
+          <div class="social-icons">
+            <a href="#">
+              <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#">
+              <i class="fab fa-twitter"></i>
+            </a>
+            <a href="#">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form">
+        <span class="circle one"></span>
+        <span class="circle two"></span>
+
+        <form autocomplete="off">
+          <h3 class="title">Send Message</h3>
+          <div class="input-container">
+            <input type="text" name="name" id="name" class="input" />
+            <label for="">Username</label>
+            <span>Username</span>
+          </div>
+          <div class="input-container">
+            <input type="email" name="email" id="email" class="input" />
+            <label for="">Email</label>
+            <span>Email</span>
+          </div>
+
+          <div class="input-container textarea">
+            <textarea name="message" id="message" class="input"></textarea>
+            <label for="">Message</label>
+            <span>Message</span>
+          </div>
+          <input type="submit" value="Send" class="btn-send" />
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
 {% endblock %}
