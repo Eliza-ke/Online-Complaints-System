@@ -5,13 +5,14 @@ from website.web_config import db
 from website.models import Category, Complaints, Student
 from werkzeug.utils import secure_filename
 from werkzeug.security import generate_password_hash, check_password_hash
-
+from datetime import datetime
 app = Flask(__name__)
 
 def send_complaint():
     user_id = session.get('student_id')
     category = Category.query.all()
     student = Student.query.get(user_id)
+    today = datetime.today().strftime("%d/%m/%Y")
     if student:
         if request.method == 'POST':
             category = request.form['category']
@@ -31,10 +32,12 @@ def send_complaint():
                 flash('Please make sure agree to the term & condition', 'complaintsformerror')
                 print("please fill out term and condition")
                 return redirect(url_for('com_send_message'))
-
+            
+            
             new_complaint = Complaints(
                 complaint_letter=complaintDetails,
                 status = "Unsolved",
+                date = today,
                 student_id=user_id,
                 category_id=category,
             )
@@ -84,6 +87,7 @@ def clientprofile():
                         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
                         student.student_image = filename
                         db.session.commit()
+                        session['student_image'] = filename
                         print("successfully uploaded")
                         return redirect(url_for('clientProfile'))
                 else:
@@ -130,39 +134,18 @@ def updateclientinformation():
             return redirect(url_for('clientProfile'))
         if not phone:
             flash('Please fill phone number', 'clientInfoerror')
-            
-        
+
         student.student_name = name
         student.student_email = email
         student.student_year = year
         student.student_major = major
         student.student_phone = phone
         db.session.commit()
-
+        session['student_email'] = student.student_email
         return redirect(url_for('clientProfile'))
     
     
-def oldpassword():
-    
-    if request.method == 'POST':
-        stid = request.form.get("stid")
-        oldpassword = request.form.get("oldpassword")
-        
-        if not oldpassword:
-            flash('Please fill your old password', 'oldpasswordfill')
-            return redirect(url_for('oldPassword'))
-        
-        student = Student.query.get(stid)
-        
-        if check_password_hash(student.student_password, oldpassword):
-            return redirect(url_for('changePassword'))
-        else:
-            flash('Incorrect old password', 'oldpassworderror')
-            return redirect(url_for('oldPassword'))
-            
-    return render_template("oldpassword.html")
-    
-    
+
 def strongPassword(password):
     pw_pattern = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
     return re.match(pw_pattern, password ) is not None    
@@ -171,8 +154,12 @@ def changepassword():
     
     if request.method == 'POST':
         stid = request.form.get("stid")
+        oldpassword = request.form.get("oldpassword")
         password1 = request.form.get("password1")
         password2 = request.form.get("password2")
+        
+        if not oldpassword:
+            return jsonify(fail=True, message ='*** Please fill old password')
         
         if not password1:
             return jsonify(fail=True, message ='*** Please fill new password')
@@ -182,15 +169,17 @@ def changepassword():
         
         student = Student.query.get(stid)
         
-        if not strongPassword(password1) and len(password1) < 8:
-            return jsonify(fail=True, message = '*** Password must be included Uppercase, Lowercase, Number and Special Characters. Password length must be greater than 8 characters')
-        
-        if password1 == password2:
-            student.student_password = generate_password_hash(password1, method='pbkdf2:sha256')
-            db.session.commit()
-            return jsonify(success=True, message = "Your Password has been changed Successfully.")
-
+        if check_password_hash(student.student_password, oldpassword):
+            if not strongPassword(password1) and len(password1) < 8:
+                return jsonify(fail=True, message = '*** Password must be included Uppercase, Lowercase, Number and Special Characters. Password length must be greater than 8 letters')
+            
+            if password1 == password2:
+                student.student_password = generate_password_hash(password1, method='pbkdf2:sha256')
+                db.session.commit()
+                return jsonify(success=True, message = "Your Password has been changed Successfully.")
+            else:
+                return jsonify(fail=True, message = '*** Passwords do not match')
         else:
-            return jsonify(fail=True, message = '*** Passwords do not match')    
+            return jsonify(fail=True, message = '*** Old Passwords does not corrrect')
         
     return render_template("changepassword.html")

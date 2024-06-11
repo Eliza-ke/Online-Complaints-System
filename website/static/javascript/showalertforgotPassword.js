@@ -28,10 +28,6 @@ $(document).ready(function () {
       });
     });
   
-  document.querySelector("#closesubmittedalert").onclick = function () {
-      document.getElementById("myModalsubmittedalert").style.display = "none";
-    };
-  
   document.querySelector("#backHome").onclick = function () {
       window.location.href = "/";
     };
@@ -41,7 +37,6 @@ $(document).ready(function () {
   function modalalert(message) {
     document.getElementById("showMessage").textContent = message;
     document.getElementById("myModalsubmittedalert").style.display = "block";
-  
   
   }
   

@@ -1,7 +1,7 @@
 from flask import render_template, redirect, session, url_for
 from website.adminfeatures import addcategory, admindashboard, adminprofile, changestate, deletecategory, deletestudent, filtercategory, filterstatus, resetpassword, updateadmininformation, updatecategory, viewcategory, viewcomplaints, viewresetpassword, viewstudent
 from website.auth import forgotpassword, signin, signup
-from website.clientfeatures import changepassword, clientprofile, oldpassword, send_complaint, updateclientinformation
+from website.clientfeatures import changepassword, clientprofile, send_complaint, updateclientinformation
 from website.web_config import create_app
 
 app = create_app()
@@ -21,9 +21,11 @@ def SignIn():
 @app.route('/sign_out')
 def Signout():
     session.pop('student_id', None)
+    session.pop('student_image', None)
     session.pop('admin', None)
     session.pop('admin_id', None)
     return redirect(url_for('SignIn'))
+
 
 @app.route('/forgotPassword', methods=['GET', 'POST'])
 def forgotPassword():
@@ -34,13 +36,6 @@ def forgotPassword():
 def com_send_message():
     if 'student_id' in session:
         return send_complaint()
-    else:
-        return redirect(url_for('SignIn'))
-
-@app.route('/oldPassword', methods=['GET', 'POST'])
-def oldPassword():
-    if 'student_id' in session:
-        return oldpassword()
     else:
         return redirect(url_for('SignIn'))
     

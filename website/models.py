@@ -31,7 +31,7 @@ class Student(db.Model):
 class Complaints(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     complaint_letter = db.Column(db.Text, nullable=False)
-    created_date = db.Column(db.DateTime(timezone=True), default=func.now())
+    date = db.Column(db.String(255), nullable=False)
     status = db.Column(db.String(255), nullable=False)
     student_id = db.Column(db.Integer, db.ForeignKey("student.id"))
     category_id = db.Column(db.Integer, db.ForeignKey("category.id"))

@@ -5,6 +5,7 @@ from website.models import Admin, ForgotPassword, Student
 from website.web_config import db
 
 def signin():
+    # admin_create()  
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
@@ -22,6 +23,8 @@ def signin():
         if student:
             if check_password_hash(student.student_password, password):
                 session['student_id'] = student.id
+                session['student_email'] = student.student_email
+                session['student_image'] = student.student_image
                 return redirect(url_for('home'))
             else:
                 flash('Incorrect password', 'autherror')
@@ -65,32 +68,34 @@ def signup():
         student_info = Student.query.filter_by(student_email=email).first()
         if student_info:
             flash('email is already exist', 'autherror')
-        elif not email:
+        if not email:
             flash('Please fill your Email', 'autherror')
             return redirect(url_for('Signup'))
-        elif not name:
+        if not name:
             flash('Please fill your Name', 'autherror')
             return redirect(url_for('Signup'))
-        elif not year:
+        if not year:
             flash('Please select a year', 'autherror')
             return redirect(url_for('Signup'))
-        elif not major:
+        if not major:
             flash('Please select a major', 'autherror')
             return redirect(url_for('Signup'))
-        elif not phone or len(phone) < 7:
+        if not phone:
             flash('Please fill your real phone number', 'autherror')
+        if len(phone) < 7 or not phone.isnumeric():
+            flash('Invaild phone number', 'autherror')
             return redirect(url_for('Signup'))
-        elif not password1:
+        if not password1:
             flash('Please fill password', 'autherror')
-        elif not password2:
+        if not password2:
             flash('Please fill confirm password', 'autherror')
-        elif not emailPattern(email):
+        if not emailPattern(email):
             flash('Invaild email', 'autherror')
             return redirect(url_for('Signup'))
-        elif password1 != password2:
+        if password1 != password2:
             flash('Password does not match', 'autherror')
             return redirect(url_for('Signup'))
-        elif not strongPassword(password1) and len(password1) < 8:
+        if not strongPassword(password1) and len(password1) < 8:
             flash('Password must be included Uppercase, Lowercase, Number and Special Characters. Password length must be greater than 8 characters', 'autherror')
             return redirect(url_for('Signup'))
         else:
@@ -132,14 +137,17 @@ def forgotpassword():
             return jsonify(fail=True, message ='*** Please fill reason for reset password')
         
         student = Student.query.filter_by(student_email=email, student_name=name).first()
-
         if student:
             student_id = student.id
-            new_forgotpassword = ForgotPassword(student_id=student_id, reason=reason)
-            db.session.add(new_forgotpassword)
-            db.session.commit()
-
-            return jsonify(success=True, message =' You submitted forgot password reason successfully ')
+            forgotpassword = ForgotPassword.query.filter_by(student_id=student_id).first()
+            
+            if forgotpassword:
+                return jsonify('You already requested to admin. please do not request again.', 'failrequest')
+            else:
+                new_forgotpassword = ForgotPassword(student_id=student_id, reason=reason)
+                db.session.add(new_forgotpassword)
+                db.session.commit()
+                return jsonify(success=True, message =' You submitted forgot password reason successfully ')
         else:    
             return jsonify(fail=True, message ='*** Account does not exist')
 
@@ -158,5 +166,5 @@ def forgotpassword():
 #     db.session.add(new_admin)
 #     db.session.commit()            
             
-            
+  
             

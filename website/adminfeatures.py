@@ -1,12 +1,15 @@
 import os
 import re
+from dotenv import load_dotenv
 from flask import Flask, flash, jsonify, redirect, render_template, request, session, url_for
 from website.models import Admin, Category, Complaints, ForgotPassword, Student
 from website.web_config import db
 from werkzeug.utils import secure_filename
 from werkzeug.security import generate_password_hash
+from flask_mail import Mail, Message
 
 app = Flask(__name__)
+
 
 UPLOAD_FOLDER = 'Website/static/images'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
@@ -301,47 +304,88 @@ def viewresetpassword():
 
     return render_template('adminresetpassword.html', accounts=accounts, students=students, count=count)
 
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USERNAME'] = 'elizake238@gmail.com'
+app.config['MAIL_PASSWORD'] = 'lspubjritadzxuxt'
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USE_SSL'] = False
+mail = Mail(app)
+
 
 def resetpassword(stid):
+
     student = Student.query.get(stid)
-    student.student_password = generate_password_hash(
-        "abc123ABC", method='pbkdf2:sha256')
-    
+    email = student.student_email
+    defaultPw = "abc123ABC"
+
+    # reset password
+    student.student_password = generate_password_hash(defaultPw, method='pbkdf2:sha256')
     db.session.commit()
-    
-    account = ForgotPassword.query.filter_by(student_id=stid)
-    for acc in account:
-        db.session.delete(acc)
-        db.session.commit()
     flash(f"{student.student_name} Account password has been reset successfully ", 'resetsuccess')
+    
+    # send email
+    msg = Message(
+        subject="Password Reset",
+        sender='venus.eehs@gmail.com',
+        recipients=[email]
+    )
+    msg.html = f"""\
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Password Reset Request</title>
+</head>
+<body>
+    <p>Dear {student.student_name},</p>
+    <p> We have received a request to reset your password. Your password has been reset. Your new temporary password is: <strong> {defaultPw}</strong></p>
+    <p>Please log in to your account using this temporary password and change it immediately.</p>
+    <p>If you did not request a password reset, please contact our support team directly.</p>
+    <p>Best regards,</p>
+    <p>IMU</p>
+</body>
+</html>
+    """
+    mail.send(msg)
+    print("finish sending email")
+    # delete forgot password data after reset
+    # account = ForgotPassword.query.filter_by(student_id=stid)
+    # for acc in account:
+    #     db.session.delete(acc)
+    #     db.session.commit()
+        
+    flash(f"Email is sent to {student.student_name} ", 'resetsuccess')
     return redirect(url_for('viewResetPassword'))
 
 
 def admindashboard():
-    
+
     allcategory = Category.query.all()
     allstudent = Student.query.all()
     allcomplaints = Complaints.query.all()
-    
+
     countcat = len(allcategory)
     countst = len(allstudent)
     countcom = len(allcomplaints)
-    
+
     allcount = {'countcat': countcat, 'countst': countst, 'countcom': countcom}
-    
+
     # which category issue do the student occur the most?
-    distinct_category = db.session.query(Complaints.category_id).distinct().all()
-    category_names = {category.id: category.cat_name for category in allcategory}
+    distinct_category = db.session.query(
+        Complaints.category_id).distinct().all()
+    category_names = {
+        category.id: category.cat_name for category in allcategory}
     category_complaints = {}
     for cat in distinct_category:
         count = Complaints.query.filter_by(category_id=cat[0]).count()
         category_complaints[cat[0]] = count
-    
-    category_labels=[]
+
+    category_labels = []
     keys = list(category_complaints.keys())
     for data in keys:
         label = category_names.get(data, "Something")
         category_labels.append(label)
-        
-    category_values = list(category_complaints.values())  
-    return render_template("admindashboard.html", allcount=allcount, category_labels=category_labels, category_values=category_values )
+
+    category_values = list(category_complaints.values())
+    return render_template("admindashboard.html", allcount=allcount, category_labels=category_labels, category_values=category_values)

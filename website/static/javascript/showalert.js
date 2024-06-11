@@ -3,6 +3,7 @@ $(document).ready(function () {
     event.preventDefault();
 
     var stid = $("#stid").val();
+    var oldpassword = $("#oldpassword").val();
     var password1 = $("#password1").val();
     var password2 = $("#password2").val();
 
@@ -11,6 +12,7 @@ $(document).ready(function () {
       url: "/changePassword",
       data: {
         stid: stid,
+        oldpassword: oldpassword,
         password1: password1,
         password2: password2,
       },
@@ -28,9 +30,6 @@ $(document).ready(function () {
     });
   });
 
-document.querySelector("#closealert").onclick = function () {
-    document.getElementById("myModalalert").style.display = "none";
-  };
 
 document.querySelector("#backHome").onclick = function () {
     window.location.href = "/";
@@ -41,7 +40,5 @@ document.querySelector("#backHome").onclick = function () {
 function modalalert(message) {
   document.getElementById("showMessage").textContent = message;
   document.getElementById("myModalalert").style.display = "block";
-
-
 }
 

@@ -57,7 +57,7 @@
                         <div class="mb-3 d-flex align-items-center">
                             <input class="form-check-input m-1" type="checkbox" id="agree" name="agree">
                             <label class="form-check-label" for="agree">
-                                Yes, I agree to <a href="/#termsNconditions"> the Terms and Conditions. </a>
+                                Yes, I agree to <a class="link-underline-primary" data-bs-toggle="modal" data-bs-target="#termNconditionModal"> the Terms and Conditions. </a>
                             </label>
                         </div>
                         <div class="input-group mb-3">
@@ -67,7 +67,69 @@
                 </div>
             </div>
         </div>
-    </div>    
+    </div>
+    
+  <!-- Modal -->
+  <div class="modal fade" id="termNconditionModal" tabindex="-1" aria-labelledby="termNconditionModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="exampleModalLabel">Terms and Conditions</h3>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <p class="aboutus-text">
+                You should read these terms and conditions to understand our
+                regulations and policy. This system is a critical part of the
+                school to reflect the students voice. As the complexity and number
+                of complaints increase, we need to take time and costs to provide
+                a solution to each problem.
+              </p>
+              <p class="aboutus-text">
+                Fake registered accounts and ineffective complaints can reduce the
+                speed of the problem solution steps. These terms and conditions
+                apply to students of the Info Myanmar University.
+              </p>
+              <h5>General terms and conditions</h5>
+                <p>
+                    <ul>
+                        <li> 
+                            Students should add real information such as his/her real name, currently
+                            using email and major and year that he/she is actually
+                            attending in your registration form.
+                        </li>
+                        <li>
+                            Students should report a complaint form with accurate and
+                            suitable reason.
+                        </li>
+                    </ul>
+                </p>
+                <h5>Regulations and policy</h5>
+                  <p>
+                    <ul>
+                        <li>
+                            Students should agree to the terms and conditions of this
+                            system. If you don’t agree, you will not be able to submit a
+                            complaint form.
+                        </li>
+                        <li>
+                            Fake registered accounts will be deleted by the system
+                            admin.
+                        </li>
+                        <li>
+                            Complaints with no reasons will not be considered to take an
+                            action.
+                        </li>
+                    </ul>
+                  </p>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
     <script src="{{ url_for('static', filename='javascript/checkedndisabled.js') }}"></script>
 
 {% endblock %}

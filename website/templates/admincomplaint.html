@@ -52,7 +52,7 @@
               <td class="searchedvalue">{{ students[complaint.student_id]['name'] }}</td>
               <td class="searchedvalue">{{ students[complaint.student_id]['year']}}</td>
               <td class="searchedvalue">{{ students[complaint.student_id]['major']}}</td>
-              <td>{{ complaint.created_date }}</td>
+              <td>{{ complaint.date }}</td>
               <td class="searchedvalue" >{{ categories[complaint.category_id] }}</td>
               <td>{{ complaint.complaint_letter}}</td>
               <td>
@@ -62,7 +62,7 @@
                 {{ complaint.status }}
                 </small>
               </td>
-              <td><a class="btn btn-success" onclick="changeState({{complaint.id}})">change</a></td>
+              <td><a class="btn btn-primary rounded-5" onclick="changeState({{complaint.id}})">change</a></td>
             </tr>
             {% endfor %}
           {% endif %}
