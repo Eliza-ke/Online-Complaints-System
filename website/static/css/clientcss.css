@@ -329,6 +329,7 @@ html {
 .card{
   border-radius: 25px;
   background-color: #FFF;
+  height: 500px;
 }
 .image-content,
 .card-content{
@@ -381,6 +382,22 @@ html {
   height: 100%;
   border-radius: 100%;
 }
+
+.description{
+  font-size: 14px;
+  color: #707070;
+  text-align: justify;
+  margin:3px;
+  overflow: hidden;
+}
+
+.name{
+  font-size: 18px;
+  font-weight: 500;
+  color: #333;
+  margin-top: 5px;
+}
+
 .btnn {
   border: none;
   font-size: 16px;
@@ -404,16 +421,7 @@ html {
   background-position: right bottom;
 }
 
-.name{
-  font-size: 18px;
-  font-weight: 500;
-  color: #333;
-}
-.description{
-  font-size: 14px;
-  color: #707070;
-  text-align: center;
-}
+
 .button {
   border: none;
   font-size: 16px;

@@ -97,10 +97,11 @@
 
       <div class="slide-container swiper">
         <div class="slide-content">
+          <h2 class="aboutus-title">categories</h2>
+
             <div class="card-wrapper swiper-wrapper">
 
           {% for cat in categories: %}
-
                 <div class="card swiper-slide">
                     <div class="image-content">
                         <span class="overlay"></span>
@@ -112,13 +113,10 @@
                     <div class="card-content">
                         <h2 class="name">{{ cat.cat_name}}</h2>
                         <p class="description">{{ cat.cat_description}}</p>
-                        <a href="/complaint_form" class="button">Report</a>
                     </div>
                 </div>
-          {% endfor %}
-
-              
-            </div>
+          {% endfor %}              
+          </div>
         </div>
         <div class="swiper-button-next swiper-navBtn"></div>
         <div class="swiper-button-prev swiper-navBtn"></div>
