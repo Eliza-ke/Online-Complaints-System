@@ -42,3 +42,10 @@ class ForgotPassword(db.Model):
     student_id = db.Column(db.Integer, nullable=False)
     reason = db.Column(db.String(255), nullable=False)
     created_date = db.Column(db.DateTime(timezone=True), default=func.now())
+
+
+class ContactMessage(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    contact_name = db.Column(db.String(255),nullable=False)
+    contact_email = db.Column(db.String(255), nullable=False)
+    contact_message = db.Column(db.String(255),nullable=False)

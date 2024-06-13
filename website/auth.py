@@ -154,17 +154,17 @@ def forgotpassword():
     return render_template("forgotPassword.html")
 
 
-# def admin_create():
-#     profileImg = "defaultprofile.png"
-#     new_admin = Admin(
-#         admin_name="eliza",
-#         admin_email="eliza@gmail.com",
-#         admin_phone="0932658471",
-#         admin_password=generate_password_hash("abc123", method='pbkdf2:sha256'),
-#         admin_image=profileImg
-#     )
-#     db.session.add(new_admin)
-#     db.session.commit()            
+def admin_create():
+    profileImg = "defaultprofile.png"
+    new_admin = Admin(
+        admin_name="eliza",
+        admin_email="eliza@gmail.com",
+        admin_phone="0932658471",
+        admin_password=generate_password_hash("abc123", method='pbkdf2:sha256'),
+        admin_image=profileImg
+    )
+    db.session.add(new_admin)
+    db.session.commit()            
             
   
             

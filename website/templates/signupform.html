@@ -12,11 +12,11 @@
 <body>
     
     <div class="container d-flex justify-content-center align-items-center min-vh-100">
-        <div class="row col-sm-5 col-md-9 col-lg-7 col-12 body rounded-5 p-3 bg-white shadow box-area">
-            <div class="col-md-5 rounded-5 justify-content-center align-items-center flex-column left-box bg-primary text-white p-3">
+        <div class="row col-sm-5 col-md-9 col-lg-9 body rounded-5 p-4 bg-white shadow box-area">
+            <div class="col-lg-6 col-md-7 rounded-5 justify-content-center align-items-center flex-column left-box text-white">
                 <img src="{{ url_for('static', filename='images/reg_photo.jpg') }}" class="img-fluid rounded-4 align-items-center h-100 w-100" style="object-fit:cover;">
             </div> 
-            <div class="col-md-7 d-flex justify-content-center align-items-center flex-column">
+            <div class="col-lg-6 col-md-5 d-flex justify-content-center align-items-center flex-column">
                 <div class="w-100">
                     <div class="header-text mb-4 text-center">
                         <h3>Sign Up</h3>
@@ -36,11 +36,11 @@
                     <form method="POST">
                     <div class="mb-3 input-group">
                         <span class="input-group-text"><i class="fas fa-user"></i></span>
-                        <input type="text" class="form-control" name="name" id="name" placeholder="Enter your name" required>
+                        <input type="text" class="form-control" name="name" id="name" placeholder="your name" required>
                     </div>
                     <div class="mb-3 input-group">
                         <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                        <input type="email" class="form-control" name="email" id="email" placeholder="Enter your Email" required>
+                        <input type="email" class="form-control" name="email" id="email" placeholder="your Email" required>
                     </div>
                     <div class="mb-3 input-group">
                         <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
@@ -63,11 +63,11 @@
                     </div>
                     <div class="mb-3 input-group">
                         <span class="input-group-text"><i class="fas fa-phone"></i></span>
-                        <input type="text" class="form-control" name="phone" id="phone" placeholder="Enter your phone Number" required>
+                        <input type="text" class="form-control" name="phone" id="phone" placeholder="your phone Number" required>
                     </div>
                     <div class="mb-3 input-group">
                         <span class="input-group-text"><i class="fas fa-lock"></i></span>
-                        <input type="password" class="form-control" name="password1" id="password1" placeholder="Enter your password" required>
+                        <input type="password" class="form-control" name="password1" id="password1" placeholder="your password" required>
                     </div>
                     <p id="passwordError" class="text-danger"></p>
                     <div class="mb-3 input-group">
@@ -75,7 +75,7 @@
                         <input type="password" class="form-control" onkeyup="passwordMatch()" name="password2" id="password2" placeholder="Retype your password" required>
                     </div>
                     <div class="mb-3 input-group">
-                        <button type="submit" class="btn btn-lg btn-primary rounded-5 w-100 fs-6">Sign up</button>
+                        <button type="submit" class="btn btn-lg btn-success rounded-5 w-100 fs-6" style="background-color:#00AD83">Sign up</button>
                     </div>
                     <div class="text-center">
                         <p>Already have an account? <a href="/sign_in">Sign in</a></p>

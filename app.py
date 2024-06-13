@@ -1,14 +1,42 @@
-from flask import render_template, redirect, session, url_for
-from website.adminfeatures import addcategory, admindashboard, adminprofile, changestate, deletecategory, deletestudent, filtercategory, filterstatus, resetpassword, updateadmininformation, updatecategory, viewcategory, viewcomplaints, viewresetpassword, viewstudent
+from flask import flash, render_template, redirect, request, session, url_for
+from website.adminfeatures import addcategory, admindashboard, adminprofile, changestate, deletecategory, deletestudent, filtercategory, filterstatus, resetpassword, updateadmininformation, updatecategory, viewcategory, viewcomplaints, viewcontactmessage, viewresetpassword, viewstudent
 from website.auth import forgotpassword, signin, signup
 from website.clientfeatures import changepassword, clientprofile, send_complaint, updateclientinformation
+from website.models import Category, ContactMessage
 from website.web_config import create_app
+from website.web_config import db
 
 app = create_app()
 
 @app.route('/', methods=['GET','POST'])
 def home():
-    return render_template("homepage.html")
+    categories = Category.query.all()
+    if request.method == 'POST':
+        contact_name = request.form.get('contact_name')
+        contact_email = request.form.get('contact_email')
+        contact_message = request.form.get('contact_message')
+        
+        if not contact_name:
+            flash("Please fill your name to contact", "contacterror")
+            return redirect(url_for("home"))
+        if not contact_email:
+            flash("Please fill your email to contact", "contacterror")
+            return redirect(url_for("home"))
+        if not contact_message:
+            flash("Please fill your message to contact", "contacterror")
+            return redirect(url_for("home"))
+        
+        new_contact = ContactMessage(
+            contact_name=contact_name,
+            contact_email=contact_email,
+            contact_message=contact_message,
+        )
+        db.session.add(new_contact)
+        db.session.commit()
+        
+        flash('Your message is sent', "contactsuccess")
+        return redirect(url_for("home"))
+    return render_template("homepage.html", categories=categories)
 
 @app.route('/sign_up', methods=['GET','POST'])
 def Signup():
@@ -61,6 +89,13 @@ def updateclientInfo():
         return updateclientinformation()
     
 # admin
+@app.route('/viewMessage', methods=['GET', 'POST'])
+def viewMessage():
+    if 'admin_id' not in session:
+        return redirect(url_for('SignIn'))
+    else:
+        return viewcontactmessage()
+    
 @app.route('/viewCategory', methods=['GET', 'POST'])
 def viewCategory():
     if 'admin_id' not in session:

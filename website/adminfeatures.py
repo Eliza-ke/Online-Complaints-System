@@ -1,8 +1,7 @@
 import os
 import re
-from dotenv import load_dotenv
 from flask import Flask, flash, jsonify, redirect, render_template, request, session, url_for
-from website.models import Admin, Category, Complaints, ForgotPassword, Student
+from website.models import Admin, Category, Complaints, ContactMessage, ForgotPassword, Student
 from website.web_config import db
 from werkzeug.utils import secure_filename
 from werkzeug.security import generate_password_hash
@@ -350,10 +349,10 @@ def resetpassword(stid):
     mail.send(msg)
     print("finish sending email")
     # delete forgot password data after reset
-    # account = ForgotPassword.query.filter_by(student_id=stid)
-    # for acc in account:
-    #     db.session.delete(acc)
-    #     db.session.commit()
+    account = ForgotPassword.query.filter_by(student_id=stid)
+    for acc in account:
+        db.session.delete(acc)
+        db.session.commit()
         
     flash(f"Email is sent to {student.student_name} ", 'resetsuccess')
     return redirect(url_for('viewResetPassword'))
@@ -374,18 +373,34 @@ def admindashboard():
     # which category issue do the student occur the most?
     distinct_category = db.session.query(
         Complaints.category_id).distinct().all()
-    category_names = {
-        category.id: category.cat_name for category in allcategory}
+    category_names = {category.id: category.cat_name for category in allcategory}
     category_complaints = {}
     for cat in distinct_category:
         count = Complaints.query.filter_by(category_id=cat[0]).count()
         category_complaints[cat[0]] = count
 
+    category_values = list(category_complaints.values())
     category_labels = []
-    keys = list(category_complaints.keys())
+    keys = list(category_complaints.keys()) # {2:2, 1:1}
     for data in keys:
         label = category_names.get(data, "Something")
         category_labels.append(label)
+ 
+    
+    # complaints is unsolved, pending and completed
+    distinct_status = db.session.query(Complaints.status).distinct().all()
+    status_complaints = {}
+    for status in distinct_status:
+        count = Complaints.query.filter_by(status=status[0]).count()
+        status_complaints[status[0]] = count
+    
+    status_labels = list(status_complaints.keys())
+    status_values = list(status_complaints.values())
+    
+    return render_template("admindashboard.html", allcount=allcount, category_labels=category_labels, category_values=category_values, status_labels=status_labels, status_values=status_values)
 
-    category_values = list(category_complaints.values())
-    return render_template("admindashboard.html", allcount=allcount, category_labels=category_labels, category_values=category_values)
+
+def viewcontactmessage():
+    contactmessages = ContactMessage.query.all()
+    count = len(contactmessages)
+    return render_template("adminmessage.html", contactmessages=contactmessages, count=count)
