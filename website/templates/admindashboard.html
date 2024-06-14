@@ -2,7 +2,7 @@
 block content %}
 
 <h2 class="my-3">Dashboard</h2>
-<div class="container p-4 mb-5 rounded text-center table-responsive">
+<div class="container p-4 mb-5 rounded table-responsive">
   <div class="row">
     <div class="col">
       <div class="p-3 m-3 text-white rounded-3" style="background:rgb(255, 205, 86)">
@@ -24,22 +24,22 @@ block content %}
     </div>
   </div>
 
-  <div class="row">
-    <div class="col">
-      <div class="m-5" style="width:450px">
-        <canvas id="barchart1"></canvas>
+  <div class="row mt-5">
+    <div class="col-lg-6 col-md-12 col-sm-12">
+      <div class="barchart">
+        <canvas id="chart1"></canvas>
       </div>
     </div>
 
-    <div class="col">
-      <div class="m-5" style="width:320px">
-        <canvas id="barchart2"></canvas>
+    <div class="col-lg-6 col-md-12 col-sm-12">
+      <div class="donutchart">
+        <canvas id="chart2"></canvas>
       </div>
     </div>
   </div>
 </div>
 <script>
-  var ctx1 = document.getElementById('barchart1');
+  var ctx1 = document.getElementById('chart1');
   const labelarr = {{ category_labels | tojson }};
 
   var myChart1 = new Chart(ctx1, {
@@ -66,7 +66,7 @@ block content %}
           }
       }
   });
-  var ctx2 = document.getElementById('barchart2');
+  var ctx2 = document.getElementById('chart2');
   const labelarr2 = {{ status_labels | tojson }};
 
   var myChart1 = new Chart(ctx2, {
