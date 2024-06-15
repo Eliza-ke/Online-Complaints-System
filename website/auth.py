@@ -5,7 +5,7 @@ from website.models import Admin, ForgotPassword, Student
 from website.web_config import db
 
 def signin():
-    # admin_create()  
+    admin_create()  
     if request.method == 'POST':
         email = request.form.get('email')
         password = request.form.get('password')
@@ -155,16 +155,21 @@ def forgotpassword():
 
 
 def admin_create():
+    name="Eliza"
+    email = "elizake238@gmail.com"
     profileImg = "defaultprofile.png"
-    new_admin = Admin(
-        admin_name="eliza",
-        admin_email="eliza@gmail.com",
-        admin_phone="0932658471",
-        admin_password=generate_password_hash("abc123", method='pbkdf2:sha256'),
-        admin_image=profileImg
-    )
-    db.session.add(new_admin)
-    db.session.commit()            
+    admin_info = Admin.query.filter_by(admin_email=email).first()
+    
+    if not admin_info:
+        new_admin = Admin(
+            admin_name=name,
+            admin_email=email,
+            admin_phone="0932658471",
+            admin_password=generate_password_hash("abc123", method='pbkdf2:sha256'),
+            admin_image=profileImg
+        )
+        db.session.add(new_admin)
+        db.session.commit()            
             
   
             

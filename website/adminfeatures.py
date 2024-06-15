@@ -326,7 +326,7 @@ def resetpassword(stid):
     # send email
     msg = Message(
         subject="Password Reset",
-        sender='venus.eehs@gmail.com',
+        sender='elizake238@gmail.com',
         recipients=[email]
     )
     msg.html = f"""\
