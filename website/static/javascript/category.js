@@ -32,3 +32,5 @@ function deleteCategory(catid) {
         window.location.href = '/deleteCategory/'+catid;
     }
 }
+
+

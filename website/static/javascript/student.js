@@ -16,3 +16,4 @@ document.getElementById('confirmDeleteStudent').onclick = function() {
     document.getElementById('myModaldeleteStudent').style.display = 'none';
     window.location.href = '/deleteStudent/'+student_id;
 }
+

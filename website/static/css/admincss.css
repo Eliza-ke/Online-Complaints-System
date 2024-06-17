@@ -27,6 +27,7 @@ body {
 }
 
 .sidebar {
+  position: fixed;
   height: 100%;
   width: auto;
   background-color: #b5b5b5;

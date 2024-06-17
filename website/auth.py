@@ -68,11 +68,11 @@ def signup():
         student_info = Student.query.filter_by(student_email=email).first()
         if student_info:
             flash('email is already exist', 'autherror')
-        if not email:
-            flash('Please fill your Email', 'autherror')
-            return redirect(url_for('Signup'))
         if not name:
             flash('Please fill your Name', 'autherror')
+            return redirect(url_for('Signup'))
+        if not email:
+            flash('Please fill your Email', 'autherror')
             return redirect(url_for('Signup'))
         if not year:
             flash('Please select a year', 'autherror')

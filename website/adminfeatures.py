@@ -130,9 +130,9 @@ def deletecategory(catid):
             db.session.delete(complaint)
             db.session.commit()
 
-            db.session.delete(deletecategory)
-            db.session.commit()
-
+        db.session.delete(deletecategory)
+        db.session.commit()
+        flash('Category deleted Successfully', "catsuccess")
         return render_template("admincategory.html", categories=Category.query.all())
 
 
@@ -146,24 +146,25 @@ def viewstudent():
 def deletestudent(stid):
     deletestudent = Student.query.get(stid)
 
-    try:
-        if deletestudent:
-            complaints = Complaints.query.filter_by(student_id=stid)
-            for complaint in complaints:
-                db.session.delete(complaint)
-                db.session.commit()
-
-            db.session.delete(deletestudent)
+    if deletestudent:
+        complaints = Complaints.query.filter_by(student_id=stid)
+        for complaint in complaints:
+            db.session.delete(complaint)
             db.session.commit()
 
-        return render_template("adminstudent.html", students=Student.query.all())
+        forgotpassword = ForgotPassword.query.filter_by(student_id=stid)
+        for forgotpass in forgotpassword:
+            db.session.delete(forgotpass)
+            db.session.commit()
+            
+        db.session.delete(deletestudent)
+        db.session.commit()
+        
+    flash('Student account deleted Successfully', "studsuccess")
+    return render_template("adminstudent.html", students=Student.query.all())
 
-    except Exception as e:
-        return print(f'error str({e})')
 
 # managing complaints
-
-
 def viewcomplaints():
     complaints = Complaints.query.all()
     count = len(complaints)
